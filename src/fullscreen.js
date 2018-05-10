@@ -10,7 +10,8 @@ document.getElementById('fullscreen_toggle').onclick = () => {
             document.msExitFullscreen();
         }
     } else {
-        const element = document.getElementsByTagName('canvas')[0];
+        const element = document.getElementById('game');
+        // const element = document.getElementsByTagName('canvas')[0];
         if (element.requestFullscreen) {
             element.requestFullscreen();
         } else if (element.mozRequestFullScreen) {

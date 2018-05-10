@@ -4,7 +4,7 @@ body {
     padding: 0;
     height: 100%;
     overflow: hidden;
-    /* font-family: 'Roboto', serif; */
+    font-family: 'Roboto', serif;
     color: #757575;
     letter-spacing: 0.21px;
     font-weight: 700;

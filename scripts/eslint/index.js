@@ -70,7 +70,7 @@ module.exports = {
         'no-underscore-dangle': 'off',
         'linebreak-style': ['error', 'windows'],
         'no-mixed-operators': [
-            'error',
+            'off',
             {
                 allowSamePrecedence: true,
             },

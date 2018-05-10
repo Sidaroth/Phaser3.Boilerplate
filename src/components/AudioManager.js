@@ -1,17 +1,34 @@
+import config from '../config';
+
 /**
  * Default background Soundtrack is Full of Stars, by Philipp Weigl (http://freemusicarchive.org/music/Philipp_Weigl/Sound-trax/Philipp_Weigl_-_Full_of_Stars)
  * Used under creative commons license CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/, https://creativecommons.org/licenses/by/4.0/legalcode)
+ *
+ * Can we extend phaser SoundManager here for cleaner code?
  */
 
 class AudioManager {
     soundEffects = new Map();
-    backgroundMusic = undefined;
+    backgroundMusic = new Map();
     isBgMusicPlaying = false;
     parent = null;
+    mute = null;
+    muteIdentifier = 'project_name_isMuted';
 
     constructor(parent) {
         this.parent = parent;
-        this.parent.sound.pauseOnBlur = false; // Keep audio playing even when losing focus.
+        this.parent.sound.pauseOnBlur = true; // Keep audio playing even when losing focus.
+    }
+
+    init() {
+        this.setupMute();
+        config.AUDIO.musicKeys.forEach((key) => {
+            this.backgroundMusic.set(key, this.parent.sound.add(key));
+        });
+
+        config.AUDIO.sfxKeys.forEach((key) => {
+            this.soundEffects.set(key, this.parent.sound.add(key));
+        });
     }
 
     playSfx(key) {
@@ -20,27 +37,51 @@ class AudioManager {
         }
     }
 
-    playBgMusic() {
-        if (this.backgroundMusic && !this.isBgMusicPlaying) {
-            this.backgroundMusic.play();
-            this.backgroundMusic.loop = true;
-            this.backgroundMusic.volume = 0.7;
+    playBgMusic(key = 'bgScore') {
+        if (!this.isBgMusicPlaying && this.backgroundMusic.has(key)) {
+            const bgm = this.backgroundMusic.get(key);
+            bgm.loop = true;
+            bgm.volume = 0.7;
+            bgm.play();
             this.isBgMusicPlaying = true;
         }
     }
 
-    loadAudio() {
-        // music
-        this.parent.load.audio('bgScore', 'assets/audio/Philipp_Weigl_-_06_-_Full_of_Stars.mp3');
+    /* eslint-disable class-methods-use-this */
+    isAudioMuted() {
+        return localStorage.getItem(this.muteIdentifier) === 'true';
+    }
 
-        // sfx
-        this.parent.load.audio('coinSfx', 'assets/audio/coin.wav');
+    toggleMute() {
+        const muteStatus = (!this.isAudioMuted()).toString();
+        localStorage.setItem(this.muteIdentifier, muteStatus);
+        this._updateMute();
+    }
+    /* eslint-enable class-methods-use-this */
 
-        // add to stores.
-        this.parent.load.on('complete', () => {
-            this.backgroundMusic = this.parent.sound.add('bgScore');
-            this.soundEffects.set('coinSfx', this.parent.sound.add('coinSfx'));
-        });
+    _updateMute() {
+        if (this.isAudioMuted()) {
+            this.mute.setTexture('speaker-off');
+            this.parent.sound.mute = true;
+        } else {
+            this.mute.setTexture('speaker');
+            this.parent.sound.mute = false;
+        }
+    }
+
+    setupMute() {
+        this.mute = this.parent.add.image(window.innerWidth - 110, window.innerHeight - 38, 'speaker');
+        this.mute.tint = config.UI_DEFAULT.tint;
+        this.mute.depth = 3;
+        this.mute.setInteractive();
+        this.mute.setOrigin(0.5, 0.5);
+        this.mute.on('pointerup', this.toggleMute, this);
+
+        this._updateMute();
+    }
+
+    destroy() {
+        this.soundEffects.destroy();
     }
 }
 
@@ -54,6 +95,8 @@ export function getAudioManager() {
 }
 
 export function createAudioManager(parent) {
-    audioManager = new AudioManager(parent);
+    if (!audioManager) {
+        audioManager = new AudioManager(parent);
+    }
     return audioManager;
 }

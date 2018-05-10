@@ -1,21 +1,16 @@
 import Phaser from 'phaser';
 import config from '../config';
 import LoadingBar from '../components/LoadingBar';
-import { createAudioManager, getAudioManager } from '../components/AudioManager';
 
 export default class LoadScene extends Phaser.Scene {
     constructor() {
         super(config.SCENES.LOAD);
     }
 
-    init() {
-        createAudioManager(this);
-    }
-
     preload() {
         this.loadingBar = new LoadingBar(this, window.innerWidth / 2, window.innerHeight / 2);
         this.load.on('complete', () => {
-            this.scene.start(config.SCENES.LEVEL1);
+            this.scene.start(config.SCENES.GAME);
             this.destroy();
         });
 
@@ -23,17 +18,22 @@ export default class LoadScene extends Phaser.Scene {
     }
 
     loadAssets() {
-        getAudioManager().loadAudio();
+        this.loadAudio();
         this.loadImages();
         this.loadSpritesheets();
     }
 
-    loadSpritesheets() {
-        this.load.atlas('coins', 'assets/spritesheets/coins.png', 'assets/spritesheets/coins.json');
+    loadAudio() {
+        this.load.audio('bgScore', 'assets/audio/Philipp_Weigl_-_06_-_Full_of_Stars.mp3');
+        this.load.audio('coinSfx', 'assets/audio/coin.wav');
     }
+
+    loadSpritesheets() {}
 
     loadImages() {
         this.load.image('background', 'assets/background.png');
+        this.load.image('speaker', 'assets/speaker.png');
+        this.load.image('speaker-off', 'assets/speaker-off.png');
     }
 
     destroy() {
