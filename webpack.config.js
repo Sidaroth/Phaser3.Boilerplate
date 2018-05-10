@@ -16,10 +16,6 @@ module.exports = {
     module: {
         rules: [
             {
-                test: [/\.vert$/, /\.frag$/],
-                use: 'raw-loader',
-            },
-            {
                 test: /\.js$/,
                 use: ['babel-loader'],
                 include: path.join(__dirname, 'src'),

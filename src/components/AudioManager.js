@@ -22,6 +22,7 @@ class AudioManager {
     playBgMusic() {
         if (this.backgroundMusic && !this.isBgMusicPlaying) {
             this.backgroundMusic.play();
+            this.backgroundMusic.loop = true;
             this.isBgMusicPlaying = true;
         }
     }
