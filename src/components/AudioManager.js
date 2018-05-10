@@ -11,6 +11,7 @@ class AudioManager {
 
     constructor(parent) {
         this.parent = parent;
+        this.parent.sound.pauseOnBlur = false; // Keep audio playing even when losing focus.
     }
 
     playSfx(key) {
@@ -23,6 +24,7 @@ class AudioManager {
         if (this.backgroundMusic && !this.isBgMusicPlaying) {
             this.backgroundMusic.play();
             this.backgroundMusic.loop = true;
+            this.backgroundMusic.volume = 0.7;
             this.isBgMusicPlaying = true;
         }
     }
