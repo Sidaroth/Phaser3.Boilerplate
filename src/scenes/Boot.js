@@ -14,6 +14,7 @@ export default class BootScene extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.setSize(config.GAME.VIEWWIDTH, config.GAME.VIEWHEIGHT);
         this.scene.start(config.SCENES.LOAD);
     }
 }

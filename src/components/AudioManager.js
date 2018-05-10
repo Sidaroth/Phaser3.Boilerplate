@@ -70,11 +70,11 @@ class AudioManager {
     }
 
     setupMute() {
-        this.mute = this.parent.add.image(window.innerWidth - 110, window.innerHeight - 38, 'speaker');
-        this.mute.tint = config.UI_DEFAULT.tint;
+        this.mute = this.parent.add.image(1400, 800, 'speaker');
+        this.mute.setScrollFactor(0);
+        this.mute.tint = 0xffffff;
         this.mute.depth = 3;
         this.mute.setInteractive();
-        this.mute.setOrigin(0.5, 0.5);
         this.mute.on('pointerup', this.toggleMute, this);
 
         this._updateMute();

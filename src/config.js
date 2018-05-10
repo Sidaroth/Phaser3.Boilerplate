@@ -1,7 +1,7 @@
 export default {
     GAME: {
-        VIEWHEIGHT: 1440,
-        VIEWWIDTH: 2560,
+        VIEWHEIGHT: 1080,
+        VIEWWIDTH: 1920,
         TITLE: 'Replace Me',
     },
     SCENES: {
