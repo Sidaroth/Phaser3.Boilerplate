@@ -1,7 +1,7 @@
 {
-    "name": "phaser-3.1.0-boilerplate",
-    "version": "1.0.0",
-    "description": "Phaser 3.1.0 Boilerplate project for rapid development.",
+    "name": "phaser-3.7.1-boilerplate",
+    "version": "1.1.0",
+    "description": "Phaser 3.7.1 Boilerplate project for rapid development.",
     "author": "Christian Holt (Sidaroth@protonmail.com)",
     "main": "src/index.js",
     "scripts": {

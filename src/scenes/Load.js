@@ -13,25 +13,19 @@ export default class LoadScene extends Phaser.Scene {
     }
 
     preload() {
-        const text = this.add.text(config.GAME.VIEWWIDTH / 2 - 20, config.GAME.VIEWHEIGHT / 2 - 20, 'loading', {
-            font: '16px Arial',
-            fill: '#eeeeee',
-            align: 'center',
-        });
-
-        this.loadingBar = new LoadingBar(this);
+        this.loadingBar = new LoadingBar(this, window.innerWidth / 2, window.innerHeight / 2);
         this.load.on('complete', () => {
-            console.log('loading complete!');
             this.scene.start(config.SCENES.LEVEL1);
+            this.destroy();
         });
 
         this.loadAssets();
     }
 
     loadAssets() {
+        getAudioManager().loadAudio();
         this.loadImages();
         this.loadSpritesheets();
-        getAudioManager().loadAudio();
     }
 
     loadSpritesheets() {
@@ -40,5 +34,9 @@ export default class LoadScene extends Phaser.Scene {
 
     loadImages() {
         this.load.image('background', 'assets/background.png');
+    }
+
+    destroy() {
+        if (this.loadingBar) this.loadingBar.destroy();
     }
 }

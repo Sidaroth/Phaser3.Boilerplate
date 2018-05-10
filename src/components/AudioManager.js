@@ -27,9 +27,13 @@ class AudioManager {
     }
 
     loadAudio() {
+        // music
         this.parent.load.audio('bgScore', 'assets/audio/Philipp_Weigl_-_06_-_Full_of_Stars.mp3');
+
+        // sfx
         this.parent.load.audio('coinSfx', 'assets/audio/coin.wav');
 
+        // add to stores.
         this.parent.load.on('complete', () => {
             this.backgroundMusic = this.parent.sound.add('bgScore');
             this.soundEffects.set('coinSfx', this.parent.sound.add('coinSfx'));
