@@ -33,4 +33,13 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin(),
     ],
+    resolve: {
+        alias: {
+            assets: path.resolve(__dirname, 'assets'),
+            scenes: path.resolve(__dirname, 'src/scenes'),
+            components: path.resolve(__dirname, 'src/components'),
+            config: path.resolve(__dirname, 'src'),
+        },
+        extensions: ['.js', '.jsx'],
+    },
 };

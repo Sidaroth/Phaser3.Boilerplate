@@ -5,9 +5,9 @@ export default {
         TITLE: 'Replace Me',
     },
     SCENES: {
-        BOOT: 'boot',
-        LOAD: 'load',
-        GAME: 'game',
+        BOOT: 'game_boot',
+        LOAD: 'game_load',
+        LEVEL1: 'game_level',
     },
     DEFAULT_TEXT_STYLE: {
         font: 'Roboto',
