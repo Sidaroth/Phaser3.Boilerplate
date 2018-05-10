@@ -10,7 +10,7 @@ const gameConfig = {
     width: config.GAME.VIEWWIDTH,
     height: config.GAME.VIEWHEIGHT,
     backgroundColor: '#555555',
-    parent: 'content',
+    parent: 'game',
     scene: [BootScene, LoadScene, Level1],
 };
 
