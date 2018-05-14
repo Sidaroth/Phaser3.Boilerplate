@@ -30,12 +30,14 @@
         "eslint-plugin-node": "^4.2.2",
         "eslint-plugin-promise": "^3.6.0",
         "eslint-plugin-standard": "^3.0.1",
+        "immutable": "^3.8.2",
         "raw-loader": "^0.5.1",
         "webpack": "^3.11.0",
         "webpack-dev-server": "^2.11.0"
     },
     "dependencies": {
         "eslint": "^4.18.0",
-        "phaser": "^3.7.1"
+        "phaser": "^3.7.1",
+        "immutable": "^3.8.2"
     }
 }

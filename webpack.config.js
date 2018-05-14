@@ -65,6 +65,7 @@ module.exports = {
             scenes: path.resolve(__dirname, 'src/scenes'),
             components: path.resolve(__dirname, 'src/components'),
             config: path.resolve(__dirname, 'src'),
+            utils: path.resolve(__dirname, 'src/utils'),
         },
         extensions: ['.js', '.jsx'],
     },

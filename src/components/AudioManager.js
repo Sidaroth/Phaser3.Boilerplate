@@ -18,6 +18,8 @@ class AudioManager {
     constructor(parent) {
         this.parent = parent;
         this.parent.sound.pauseOnBlur = true; // Keep audio playing even when losing focus.
+
+        this.init();
     }
 
     init() {
@@ -70,9 +72,9 @@ class AudioManager {
     }
 
     setupMute() {
-        this.mute = this.parent.add.image(1400, 800, 'speaker');
+        this.mute = this.parent.add.image(1850, 1040, 'speaker');
         this.mute.setScrollFactor(0);
-        this.mute.tint = 0xffffff;
+        this.mute.tint = config.UI_DEFAULT.tint;
         this.mute.depth = 3;
         this.mute.setInteractive();
         this.mute.on('pointerup', this.toggleMute, this);

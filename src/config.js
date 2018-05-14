@@ -8,6 +8,7 @@ export default {
         BOOT: 'game_boot',
         LOAD: 'game_load',
         GAME: 'game_game',
+        UI: 'UI',
     },
     DEFAULT_TEXT_STYLE: {
         font: 'Roboto',
