@@ -5,6 +5,7 @@ Phaser 3.7.1 Boilerplate project for rapid development.
 ## How to use
 1. Clone the repository
 2. Copy into a new folder/repository
+1. Update Package.json and index.html with author/title/etc.
 3. npm install
 4. npm start
 
