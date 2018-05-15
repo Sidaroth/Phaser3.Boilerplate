@@ -4,6 +4,7 @@ import config from '../config';
 import { createAudioManager } from '../components/AudioManager';
 import Box from '../entities/box';
 import UI from './UI';
+import Stats from 'stats-js';
 
 /**
  * Responsible for delegating the various levels, holding the various core systems and such.
@@ -13,6 +14,8 @@ export default class Game extends Phaser.Scene {
     documentListeners = List([]);
     entities = List([]);
     UI = null;
+    fpsStats = null;
+    msStats = null;
 
     constructor() {
         super(config.SCENES.GAME);
@@ -31,6 +34,7 @@ export default class Game extends Phaser.Scene {
         this.audioManager.playBgMusic();
         this.createCoin();
         this.addEntities();
+        this.setupPerformanceStats();
     }
 
     addEntities() {
@@ -40,6 +44,33 @@ export default class Game extends Phaser.Scene {
         }
 
         console.log(this.entities);
+    }
+
+    setupPerformanceStats() {
+        this.fpsStats = new Stats();
+        this.msStats = new Stats();
+        this.fpsStats.setMode(0);
+        this.msStats.setMode(1);
+
+        this.fpsStats.domElement.style.position = 'absolute';
+        this.fpsStats.domElement.style.left = '0px';
+        this.fpsStats.domElement.style.top = '0px';
+
+        this.msStats.domElement.style.position = 'absolute';
+        this.msStats.domElement.style.left = '80px';
+        this.msStats.domElement.style.top = '0px';
+
+        document.body.appendChild(this.fpsStats.domElement);
+        document.body.appendChild(this.msStats.domElement);
+
+        this.events.on('preupdate', () => {
+            this.fpsStats.begin();
+            this.msStats.begin();
+        });
+        this.events.on('postupdate', () => {
+            this.fpsStats.end();
+            this.msStats.end();
+        });
     }
 
     update(time, delta) {}
