@@ -5,6 +5,7 @@ import { createAudioManager } from '../components/AudioManager';
 import Box from '../entities/box';
 import UI from './UI';
 import Stats from 'stats-js';
+import * as dat from 'dat.gui';
 
 /**
  * Responsible for delegating the various levels, holding the various core systems and such.
@@ -26,6 +27,20 @@ export default class Game extends Phaser.Scene {
         this.UI = new UI();
         this.scene.add(config.SCENES.UI, this.UI, true);
         this.audioManager = createAudioManager(this.UI);
+        this.setupDatGui();
+    }
+
+    setupDatGui() {
+        this.gui = new dat.GUI();
+        this.gui.addFolder('Test folder');
+
+        this.guiData = {
+            name: 'name',
+        };
+        const guiController = this.gui.add(this.guiData, 'name');
+        guiController.onFinishChange((name) => {
+            console.log(name);
+        });
     }
 
     create() {

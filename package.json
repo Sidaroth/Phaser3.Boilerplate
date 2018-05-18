@@ -48,8 +48,9 @@
         "webpack-dev-server": "^3.1.1"
     },
     "dependencies": {
-        "phaser": "^3.7.1",
+        "dat.gui": "^0.7.2",
         "immutable": "^3.8.2",
+        "phaser": "^3.7.1",
         "stats-js": "^1.0.0-alpha1"
     }
 }
