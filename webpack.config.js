@@ -1,72 +1,11 @@
-const webpack = require('webpack');
-const path = require('path');
+const TARGET = process.env.npm_lifecycle_event;
 
-module.exports = {
-    entry: './src/index.js',
-    devtool: 'eval-source-map',
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'build'),
-        publicPath: '/build/',
-    },
-    devServer: {
-        port: 3000,
-        hot: true,
-    },
-    module: {
-        rules: [
-            {
-                test: [/\.vert$/, /\.frag$/],
-                use: 'raw-loader',
-            },
-            {
-                test: /\.js$/,
-                use: ['babel-loader'],
-                include: path.join(__dirname, 'src'),
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    {
-                        loader: 'style-loader',
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            camelCase: 'dashes',
-                            localIdentName: '[path][name]__[local]',
-                        },
-                    },
-                    {
-                        loader: 'resolve-url-loader',
-                    },
-                    {
-                        loader: 'sass-loader',
-                    },
-                ],
-            },
-            {
-                test: /\.(jpg|png|woff)$/,
-                use: 'file-loader',
-            },
-        ],
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            CANVAS_RENDERER: JSON.stringify(true),
-            WEBGL_RENDERER: JSON.stringify(true),
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-    ],
-    resolve: {
-        alias: {
-            assets: path.resolve(__dirname, 'assets'),
-            scenes: path.resolve(__dirname, 'src/scenes'),
-            components: path.resolve(__dirname, 'src/components'),
-            config: path.resolve(__dirname, 'src'),
-            utils: path.resolve(__dirname, 'src/utils'),
-        },
-        extensions: ['.js', '.jsx'],
-    },
-};
+if (TARGET === 'build:dev' || TARGET === 'dev' || TARGET === 'start' || !TARGET) {
+    module.exports = require('./config/webpack.config.dev');
+    console.info('--> ./config/webpack.config.dev.js');
+}
+
+if (TARGET === 'build' || TARGET === 'stats') {
+    module.exports = require('./config/webpack.config.prod');
+    console.info('--> ./config/webpack.config.prod.js');
+}

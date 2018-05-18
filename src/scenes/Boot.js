@@ -10,7 +10,7 @@ export default class BootScene extends Phaser.Scene {
      * Preload loading bar and needed fonts etc.
      */
     preload() {
-        this.load.image('loading-bg', 'assets/loader-bg.png');
+        this.load.image('loading-bg', 'assets/images/loader-bg.png');
     }
 
     create() {

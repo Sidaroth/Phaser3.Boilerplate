@@ -31,9 +31,9 @@ export default class LoadScene extends Phaser.Scene {
     loadSpritesheets() {}
 
     loadImages() {
-        this.load.image('background', 'assets/background.png');
-        this.load.image('speaker', 'assets/speaker.png');
-        this.load.image('speaker-off', 'assets/speaker-off.png');
+        this.load.image('background', 'assets/images/background.png');
+        this.load.image('speaker', 'assets/images/speaker.png');
+        this.load.image('speaker-off', 'assets/images/speaker-off.png');
     }
 
     destroy() {
