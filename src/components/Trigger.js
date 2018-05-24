@@ -1,19 +1,23 @@
 import messageBus from '../components/messageBus';
 import config from '../config';
 
-export default class Trigger {
-    /** @type {Phaser.GameObjects.Zone}   */
-    triggerZone = null;
+export default class Trigger extends Phaser.EventEmitter {
     /** @type {Phaser.Scene}   */
     parentScene = null;
+    parent = null;
+
+    /** @type {Phaser.GameObjects.Zone}   */
+    triggerZone = null;
     overlapsWith = [];
     overlappedEntities = [];
-    connectedTo = null;
 
     constructor(parentScene, x, y, w, h, bodies, parent) {
+        super();
+
         if (parent) this.parent = parent; // We may want a trigger zone that is not conncected to an object, but free in the scene.
         this.parentScene = parentScene;
         this.triggerZone = new Phaser.GameObjects.Zone(this.parentScene, x, y, w, h);
+        this.emitter = new Phaser.EventEmitter();
         this.parentScene.physics.add.existing(this.triggerZone, true);
         this.overlapsWith = bodies;
     }
@@ -45,6 +49,7 @@ export default class Trigger {
             if (previous.indexOf(entity) === -1) {
                 const parent = this.parent || this;
                 messageBus.emit(config.EVENTS.ENTITY_ENTERED_RANGE, parent, entity);
+                this.emit(config.EVENTS.ENTITY_ENTERED_RANGE, parent, entity);
             }
         });
 
@@ -52,6 +57,7 @@ export default class Trigger {
         previous.forEach((entity) => {
             if (this.overlappedEntities.indexOf(entity) === -1) {
                 const parent = this.parent || this;
+                this.emit(config.EVENTS.ENTITY_LEFT_RANGE, parent, entity);
                 messageBus.emit(config.EVENTS.ENTITY_LEFT_RANGE, parent, entity);
             }
         });
