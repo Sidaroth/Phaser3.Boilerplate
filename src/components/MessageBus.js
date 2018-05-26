@@ -1,10 +1,13 @@
 import Phaser from 'phaser';
 
-class MessageBus extends Phaser.EventEmitter {
-    constructor() {
-        super();
-    }
-}
+/**
+ * It's likely not needed to extend the eventEmitter here, can just use a var.
+ */
+// class MessageBus extends Phaser.EventEmitter {
+//     constructor() {
+//         super();
+//     }
+// }
 
-const messageBus = new MessageBus();
+const messageBus = new Phaser.EventEmitter();
 export default messageBus;

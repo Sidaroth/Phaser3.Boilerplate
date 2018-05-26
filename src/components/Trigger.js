@@ -1,5 +1,6 @@
-import messageBus from '../components/messageBus';
+import messageBus from './MessageBus';
 import config from '../config';
+import Phaser from 'phaser';
 
 export default class Trigger extends Phaser.EventEmitter {
     /** @type {Phaser.Scene}   */
