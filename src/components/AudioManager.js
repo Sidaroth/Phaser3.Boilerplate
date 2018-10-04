@@ -7,98 +7,109 @@ import config from '../config';
  * Can we extend phaser SoundManager here for cleaner code?
  */
 
-class AudioManager {
-    soundEffects = new Map();
-    backgroundMusic = new Map();
-    isBgMusicPlaying = false;
-    parent = null;
-    mute = null;
-    muteIdentifier = 'project_name_isMuted';
+const AudioManager = function createAudioManagerFunc() {
+    const state = {};
+    let container;
+    let muteIcon;
+    const muteIdentifier = `${config.GAME.TITLE.replace(/ /g, '_')}_isMuted`; // replace all spaces with _ for safety
+    const soundEffects = new Map();
+    const backgroundMusic = new Map();
 
-    constructor(parent) {
-        this.parent = parent;
-        this.parent.sound.pauseOnBlur = true; // Keep audio playing even when losing focus.
-
-        this.init();
-    }
-
-    init() {
-        this.setupMute();
+    function init() {
+        state.setupMute();
         config.AUDIO.musicKeys.forEach((key) => {
-            this.backgroundMusic.set(key, this.parent.sound.add(key));
+            backgroundMusic.set(key, container.sound.add(key));
         });
 
         config.AUDIO.sfxKeys.forEach((key) => {
-            this.soundEffects.set(key, this.parent.sound.add(key));
+            soundEffects.set(key, container.sound.add(key));
         });
+
+        return state;
     }
 
-    playSfx(key) {
-        if (this.soundEffects.has(key)) {
-            this.soundEffects.get(key).play();
+    function setContainer(newContainer) {
+        container = newContainer;
+        return state;
+    }
+
+    function setPauseOnBlur(pauseOnBlur) {
+        if (container) {
+            container.sound.pauseOnBlur = pauseOnBlur; // Keep audio playing even when losing focus.
+        }
+        return state;
+    }
+
+    function playSfx(key) {
+        if (soundEffects.has(key)) {
+            soundEffects.get(key).play();
         }
     }
 
-    playBgMusic(key = 'bgScore') {
-        if (!this.isBgMusicPlaying && this.backgroundMusic.has(key)) {
-            const bgm = this.backgroundMusic.get(key);
+    function playBgMusic(key = 'bgScore') {
+        if (!state.isBgMusicPlaying && backgroundMusic.has(key)) {
+            const bgm = backgroundMusic.get(key);
             bgm.loop = true;
             bgm.volume = 0.7;
             bgm.play();
-            this.isBgMusicPlaying = true;
+            state.isBgMusicPlaying = true;
         }
     }
 
-    /* eslint-disable class-methods-use-this */
-    isAudioMuted() {
-        return localStorage.getItem(this.muteIdentifier) === 'true';
+    function isAudioMuted() {
+        return localStorage.getItem(muteIdentifier) === 'true';
     }
 
-    toggleMute() {
-        const muteStatus = (!this.isAudioMuted()).toString();
-        localStorage.setItem(this.muteIdentifier, muteStatus);
-        this._updateMute();
-    }
-    /* eslint-enable class-methods-use-this */
-
-    _updateMute() {
-        if (this.isAudioMuted()) {
-            this.mute.setTexture('speaker-off');
-            this.parent.sound.mute = true;
+    function _updateMute() {
+        if (state.isAudioMuted()) {
+            muteIcon.setTexture('speaker-off');
+            container.sound.mute = true;
         } else {
-            this.mute.setTexture('speaker');
-            this.parent.sound.mute = false;
+            muteIcon.setTexture('speaker');
+            container.sound.mute = false;
         }
     }
 
-    setupMute() {
-        this.mute = this.parent.add.image(1850, 1040, 'speaker');
-        this.mute.setScrollFactor(0);
-        this.mute.tint = config.UI_DEFAULT.tint;
-        this.mute.depth = 3;
-        this.mute.setInteractive();
-        this.mute.on('pointerup', this.toggleMute, this);
-
-        this._updateMute();
+    function toggleMute() {
+        const muteStatus = (!state.isAudioMuted()).toString();
+        localStorage.setItem(muteIdentifier, muteStatus);
+        _updateMute();
     }
 
-    destroy() {
-        this.soundEffects.destroy();
+    function setupMute() {
+        muteIcon = container.add.image(1850, 1040, 'speaker');
+        muteIcon.setScrollFactor(0);
+        muteIcon.tint = config.UI_DEFAULT.tint;
+        muteIcon.depth = 3;
+        muteIcon.setInteractive();
+        muteIcon.on('pointerup', state.toggleMute, state);
+
+        _updateMute();
     }
-}
+
+    function destroy() {
+        muteIcon.destroy();
+        soundEffects.destroy();
+        backgroundMusic.destroy();
+    }
+
+    return Object.assign(state, {
+        // props
+        isBgMusicPlaying: false,
+        // methods
+        init,
+        playSfx,
+        setContainer,
+        setPauseOnBlur,
+        playBgMusic,
+        isAudioMuted,
+        toggleMute,
+        setupMute,
+        destroy,
+    });
+};
 
 /**
  * Audio manager instance, there should only be one. Implementation may change.
  */
-let audioManager = null;
-export function getAudioManager() {
-    if (audioManager) return audioManager;
-    return null;
-}
-
-export function createAudioManager(parent) {
-    if (!audioManager) {
-        audioManager = new AudioManager(parent);
-    }
-    return audioManager;
-}
+export default AudioManager;

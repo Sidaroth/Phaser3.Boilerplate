@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { List } from 'immutable';
 import config from '../config';
-import { createAudioManager } from '../components/AudioManager';
+import AudioManager from '../components/AudioManager';
 import Box from '../entities/box';
 import UI from './UI';
 
@@ -24,7 +24,7 @@ export default class Game extends Phaser.Scene {
         // After assets are loaded.
         this.UI = new UI();
         this.scene.add(config.SCENES.UI, this.UI, true);
-        this.audioManager = createAudioManager(this.UI);
+        this.audioManager = AudioManager().setContainer(this.UI).setPauseOnBlur(true).init();
     }
 
     create() {
