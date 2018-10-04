@@ -26,12 +26,12 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.jsm'],
         alias: {
+            configs: path.resolve(__dirname, '../src/configs'),
             styles: path.resolve(__dirname, '../styles'),
             assets: path.resolve(__dirname, '../assets'),
             scenes: path.resolve(__dirname, '../src/scenes'),
             entities: path.resolve(__dirname, '../src/entities'),
             components: path.resolve(__dirname, '../src/components'),
-            config: path.resolve(__dirname, '../src'),
             utils: path.resolve(__dirname, '../src/utils'),
         },
     },

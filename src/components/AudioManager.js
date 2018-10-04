@@ -1,4 +1,6 @@
-import config from '../config';
+import gameConfig from 'configs/gameConfig';
+import spriteConfig from 'configs/spriteConfig';
+import audioConfig from 'configs/audioConfig';
 
 /**
  * Default background Soundtrack is Full of Stars, by Philipp Weigl (http://freemusicarchive.org/music/Philipp_Weigl/Sound-trax/Philipp_Weigl_-_Full_of_Stars)
@@ -11,18 +13,17 @@ const AudioManager = function createAudioManagerFunc() {
     const state = {};
     let scene;
     let muteIcon;
-    const muteIdentifier = `${config.GAME.TITLE.replace(/ /g, '_')}_isMuted`; // replace all spaces with _ for safety
+    const muteIdentifier = `${gameConfig.GAME.TITLE.replace(/ /g, '_')}_isMuted`; // replace all spaces with _ for safety
     const soundEffects = new Map();
     const backgroundMusic = new Map();
 
     function init() {
         state.setupMute();
-        config.AUDIO.musicKeys.forEach((key) => {
-            backgroundMusic.set(key, scene.sound.add(key));
-        });
-
-        config.AUDIO.sfxKeys.forEach((key) => {
-            soundEffects.set(key, scene.sound.add(key));
+        // TODO fix map of background/sfx, split config or make mapped objects more complex
+        backgroundMusic.set(audioConfig.BG_SCORE.KEY, scene.sound.add(audioConfig.BG_SCORE.KEY));
+        Object.keys(audioConfig).forEach((objKey) => {
+            const AUDIO = audioConfig[objKey];
+            soundEffects.set(AUDIO.KEY, scene.sound.add(AUDIO.KEY));
         });
 
         return state;
@@ -47,7 +48,7 @@ const AudioManager = function createAudioManagerFunc() {
         }
     }
 
-    function playBgMusic(key = 'bgScore') {
+    function playBgMusic(key = audioConfig.BG_SCORE.KEY) {
         if (!state.isBgMusicPlaying && backgroundMusic.has(key)) {
             const bgm = backgroundMusic.get(key);
             bgm.loop = true;
@@ -63,10 +64,10 @@ const AudioManager = function createAudioManagerFunc() {
 
     function _updateMute() {
         if (state.isAudioMuted()) {
-            muteIcon.setTexture('speaker-off');
+            muteIcon.setTexture(spriteConfig.SPEAKER_OFF.KEY);
             scene.sound.mute = true;
         } else {
-            muteIcon.setTexture('speaker');
+            muteIcon.setTexture(spriteConfig.SPEAKER.KEY);
             scene.sound.mute = false;
         }
     }
@@ -78,9 +79,9 @@ const AudioManager = function createAudioManagerFunc() {
     }
 
     function setupMute() {
-        muteIcon = scene.add.image(1850, 1040, 'speaker');
+        muteIcon = scene.add.image(1850, 1040, spriteConfig.SPEAKER.KEY);
         muteIcon.setScrollFactor(0);
-        muteIcon.tint = config.UI_DEFAULT.tint;
+        muteIcon.tint = gameConfig.UI_DEFAULT.tint;
         muteIcon.depth = 3;
         muteIcon.setInteractive();
         muteIcon.on('pointerup', state.toggleMute, state);

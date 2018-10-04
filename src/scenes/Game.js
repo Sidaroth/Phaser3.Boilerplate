@@ -1,65 +1,73 @@
 import Phaser from 'phaser';
 import { List } from 'immutable';
-import config from '../config';
-import AudioManager from '../components/AudioManager';
-import Box from '../entities/box';
-import UI from './UI';
+import gameConfig from 'configs/gameConfig';
+import spriteConfig from 'configs/spriteConfig';
+import AudioManager from 'components/AudioManager';
+import Box from 'entities/box';
+import UI from 'scenes/UI';
+import audioConfig from 'configs/audioConfig';
 
 /**
  * Responsible for delegating the various levels, holding the various core systems and such.
  */
-export default class Game extends Phaser.Scene {
-    audioManager = null;
-    documentListeners = List([]);
-    entities = List([]);
-    UI = null;
-    fpsStats = null;
-    msStats = null;
+const Game = function GameFunc() {
+    const state = new Phaser.Scene(gameConfig.SCENES.GAME);
+    let audioManager;
+    let entities = List([]);
+    let UIScene;
+    let background;
 
-    constructor() {
-        super(config.SCENES.GAME);
+    function createCoin() {
+        audioManager.playSfx(audioConfig.COIN_SFX.KEY);
     }
 
-    init() {
-        // After assets are loaded.
-        this.UI = UI();
-        this.scene.add(config.SCENES.UI, this.UI, true);
-        this.audioManager = AudioManager().setScene(this.UI).setPauseOnBlur(true).init();
+    function cameraSetup() {
+        // state.cameras.main.startFollow(state.player); // or whatever else.
+        state.cameras.main.setViewport(0, 0, gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
+        state.cameras.main.setZoom(0.8);
     }
 
-    create() {
-        this.background = this.add.image(0, 0, 'background');
-        this.background.setOrigin(0, 0);
-        this.audioManager.playBgMusic();
-        this.createCoin();
-        this.addEntities();
-        this.cameraSetup();
-    }
-
-    addEntities() {
+    function addEntities() {
         const numberOfEntities = 25;
         for (let i = 0; i < numberOfEntities; i += 1) {
-            this.entities = this.entities.push(new Box());
+            entities = entities.push(new Box());
         }
-
-        console.log(this.entities);
     }
 
-    update(time, delta) {}
-
-    createCoin() {
-        this.audioManager.playSfx('coinSfx');
+    function init() {
+        // After assets are loaded.
+        UIScene = UI();
+        state.scene.add(gameConfig.SCENES.UI, UIScene, true);
+        audioManager = AudioManager()
+            .setScene(UIScene)
+            .setPauseOnBlur(true)
+            .init();
     }
 
-    cameraSetup() {
-        // this.cameras.main.startFollow(this.player); // or whatever else.
-        this.cameras.main.setViewport(0, 0, config.GAME.VIEWWIDTH, config.GAME.VIEWHEIGHT);
-        this.cameras.main.setZoom(0.8);
+    function create() {
+        background = state.add.image(0, 0, spriteConfig.BACKGROUND.KEY);
+        background.setOrigin(0, 0);
+        audioManager.playBgMusic();
+        createCoin();
+        addEntities();
+        cameraSetup();
     }
 
-    destroy() {
-        if (this.background) this.background.destroy();
-        if (this.coin) this.coin.destroy();
-        this.removeListeners();
+    function update(time, delta) {}
+
+    function destroy() {
+        if (background) state.background.destroy();
+        if (UI) UI.destroy();
     }
-}
+
+    return Object.assign(state, {
+        // props
+        // methods
+        init,
+        create,
+        update,
+        destroy,
+    });
+};
+
+export default Game;

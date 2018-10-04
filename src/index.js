@@ -1,17 +1,17 @@
 import Phaser from 'phaser';
-import config from './config';
+import gameConfig from 'configs/gameConfig';
 
-import BootScene from './scenes/Boot';
-import LoadScene from './scenes/Load';
-import Game from './scenes/Game';
+import BootScene from 'scenes/Boot';
+import LoadScene from 'scenes/Load';
+import Game from 'scenes/Game';
 
-const gameConfig = {
+const phaserConfig = {
     type: Phaser.WEBGL,
-    width: config.GAME.VIEWWIDTH,
-    height: config.GAME.VIEWHEIGHT,
+    width: gameConfig.GAME.VIEWWIDTH,
+    height: gameConfig.GAME.VIEWHEIGHT,
     backgroundColor: '#555555',
     parent: 'game',
     scene: [BootScene, LoadScene, Game],
 };
 
-const game = new Phaser.Game(gameConfig);
+const game = new Phaser.Game(phaserConfig);

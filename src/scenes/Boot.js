@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
-import config from '../config';
+import gameConfig from 'configs/gameConfig';
 
 const BootScene = function BootSceneFunc() {
-    const state = new Phaser.Scene(config.SCENES.BOOT);
+    const state = new Phaser.Scene(gameConfig.SCENES.BOOT);
     /**
      * Preload loading bar and needed fonts etc.
      */
@@ -11,8 +11,8 @@ const BootScene = function BootSceneFunc() {
     }
 
     function create() {
-        state.cameras.main.setSize(config.GAME.VIEWWIDTH, config.GAME.VIEWHEIGHT);
-        state.scene.start(config.SCENES.LOAD);
+        state.cameras.main.setSize(gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
+        state.scene.start(gameConfig.SCENES.LOAD);
     }
 
     return Object.assign(state, {

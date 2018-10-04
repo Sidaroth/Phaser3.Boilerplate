@@ -1,14 +1,18 @@
 import Phaser from 'phaser';
-import config from '../config';
-import LoadingBar from '../components/LoadingBar';
+import gameConfig from 'configs/gameConfig';
+import LoadingBar from 'components/LoadingBar';
+import spriteConfig from 'configs/spriteConfig';
+import audioConfig from 'configs/audioConfig';
 
 const LoadScene = function LoadSceneFunc() {
-    const state = new Phaser.Scene(config.SCENES.LOAD);
+    const state = new Phaser.Scene(gameConfig.SCENES.LOAD);
     let loadingBar;
 
     function loadAudio() {
-        state.load.audio('bgScore', 'assets/audio/Philipp_Weigl_-_06_-_Full_of_Stars.mp3');
-        state.load.audio('coinSfx', 'assets/audio/coin.wav');
+        Object.keys(audioConfig).forEach((objKey) => {
+            const AUDIO = audioConfig[objKey];
+            state.load.audio(AUDIO.KEY, AUDIO.PATH);
+        });
     }
 
     function loadSpritesheets() {}
@@ -16,9 +20,10 @@ const LoadScene = function LoadSceneFunc() {
     function loadMaps() {}
 
     function loadImages() {
-        state.load.image('background', 'assets/images/background.png');
-        state.load.image('speaker', 'assets/images/speaker.png');
-        state.load.image('speaker-off', 'assets/images/speaker-off.png');
+        Object.keys(spriteConfig).forEach((objKey) => {
+            const SPRITE = spriteConfig[objKey];
+            state.load.image(SPRITE.KEY, SPRITE.PATH);
+        });
     }
 
     function loadAssets() {
@@ -31,7 +36,7 @@ const LoadScene = function LoadSceneFunc() {
     function preload() {
         loadingBar = new LoadingBar(state, window.innerWidth / 2, window.innerHeight / 2);
         state.load.on('complete', () => {
-            state.scene.start(config.SCENES.GAME);
+            state.scene.start(gameConfig.SCENES.GAME);
             state.destroy();
         });
 

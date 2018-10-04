@@ -1,14 +1,14 @@
 import Phaser from 'phaser';
-import config from '../config';
 import Stats from 'stats-js';
 import * as dat from 'dat.gui';
+import gameConfig from 'configs/gameConfig';
 
 /**
  * Layer/Scene for UI elements.
  */
 
 const UI = function UIFunc() {
-    const state = new Phaser.Scene(config.SCENES.UI);
+    const state = new Phaser.Scene(gameConfig.SCENES.UI);
     let gui;
     let stats;
 

@@ -1,5 +1,5 @@
-import messageBus from './MessageBus';
-import config from '../config';
+import messageBus from 'components/MessageBus';
+import gameConfig from 'configs/gameConfig';
 import Phaser from 'phaser';
 
 export default class Trigger extends Phaser.EventEmitter {
@@ -49,8 +49,8 @@ export default class Trigger extends Phaser.EventEmitter {
         this.overlappedEntities.forEach((entity) => {
             if (previous.indexOf(entity) === -1) {
                 const parent = this.parent || this;
-                messageBus.emit(config.EVENTS.ENTITY_ENTERED_RANGE, parent, entity);
-                this.emit(config.EVENTS.ENTITY_ENTERED_RANGE, parent, entity);
+                messageBus.emit(gameConfig.EVENTS.ENTITY_ENTERED_RANGE, parent, entity);
+                this.emit(gameConfig.EVENTS.ENTITY_ENTERED_RANGE, parent, entity);
             }
         });
 
@@ -58,8 +58,8 @@ export default class Trigger extends Phaser.EventEmitter {
         previous.forEach((entity) => {
             if (this.overlappedEntities.indexOf(entity) === -1) {
                 const parent = this.parent || this;
-                this.emit(config.EVENTS.ENTITY_LEFT_RANGE, parent, entity);
-                messageBus.emit(config.EVENTS.ENTITY_LEFT_RANGE, parent, entity);
+                this.emit(gameConfig.EVENTS.ENTITY_LEFT_RANGE, parent, entity);
+                messageBus.emit(gameConfig.EVENTS.ENTITY_LEFT_RANGE, parent, entity);
             }
         });
     }
