@@ -7,7 +7,6 @@ const BootScene = function BootSceneFunc() {
      * Preload loading bar and needed fonts etc.
      */
     function preload() {
-        state.load.image('loading-bg', 'assets/images/loader-bg.png');
     }
 
     function create() {
