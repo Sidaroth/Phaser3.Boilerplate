@@ -3,7 +3,7 @@ import { List } from 'immutable';
 import gameConfig from 'configs/gameConfig';
 import spriteConfig from 'configs/spriteConfig';
 import AudioManager from 'components/AudioManager';
-import Box from 'entities/box';
+import Player from 'entities/Player';
 import UI from 'scenes/UI';
 import audioConfig from 'configs/audioConfig';
 
@@ -28,10 +28,13 @@ const Game = function GameFunc() {
     }
 
     function addEntities() {
-        const numberOfEntities = 25;
+        const numberOfEntities = 3;
         for (let i = 0; i < numberOfEntities; i += 1) {
-            entities = entities.push(new Box());
+            entities = entities.push(Player());
         }
+        entities.forEach((e) => {
+            e.printInfo();
+        });
     }
 
     function init() {
