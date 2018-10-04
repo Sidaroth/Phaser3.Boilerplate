@@ -1,20 +1,28 @@
 import Phaser from 'phaser';
 import config from '../config';
 
-export default class BootScene extends Phaser.Scene {
-    constructor() {
-        super(config.SCENES.BOOT);
-    }
-
+const BootScene = function BootSceneFunc() {
+    const state = {};
     /**
      * Preload loading bar and needed fonts etc.
      */
-    preload() {
-        this.load.image('loading-bg', 'assets/images/loader-bg.png');
+    function preload() {
+        state.load.image('loading-bg', 'assets/images/loader-bg.png');
+        console.log('preload');
     }
 
-    create() {
-        this.cameras.main.setSize(config.GAME.VIEWWIDTH, config.GAME.VIEWHEIGHT);
-        this.scene.start(config.SCENES.LOAD);
+    function create() {
+        state.cameras.main.setSize(config.GAME.VIEWWIDTH, config.GAME.VIEWHEIGHT);
+        state.scene.start(config.SCENES.LOAD);
+        console.log('create');
     }
-}
+
+    Object.assign(state, new Phaser.Scene(config.SCENES.BOOT), {
+        // props
+        preload,
+        create,
+    });
+    return state;
+};
+
+export default BootScene;

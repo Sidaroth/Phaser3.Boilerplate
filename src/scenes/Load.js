@@ -2,41 +2,52 @@ import Phaser from 'phaser';
 import config from '../config';
 import LoadingBar from '../components/LoadingBar';
 
-export default class LoadScene extends Phaser.Scene {
-    constructor() {
-        super(config.SCENES.LOAD);
+const LoadScene = function LoadSceneFunc() {
+    const state = {};
+    let loadingBar;
+
+    function loadAudio() {
+        state.load.audio('bgScore', 'assets/audio/Philipp_Weigl_-_06_-_Full_of_Stars.mp3');
+        state.load.audio('coinSfx', 'assets/audio/coin.wav');
     }
 
-    preload() {
-        this.loadingBar = new LoadingBar(this, window.innerWidth / 2, window.innerHeight / 2);
-        this.load.on('complete', () => {
-            this.scene.start(config.SCENES.GAME);
-            this.destroy();
+    function loadSpritesheets() {}
+
+    function loadMaps() {}
+
+    function loadImages() {
+        state.load.image('background', 'assets/images/background.png');
+        state.load.image('speaker', 'assets/images/speaker.png');
+        state.load.image('speaker-off', 'assets/images/speaker-off.png');
+    }
+
+    function loadAssets() {
+        loadAudio();
+        loadImages();
+        loadSpritesheets();
+        loadMaps();
+    }
+
+    function preload() {
+        loadingBar = new LoadingBar(state, window.innerWidth / 2, window.innerHeight / 2);
+        state.load.on('complete', () => {
+            state.scene.start(config.SCENES.GAME);
+            state.destroy();
         });
 
-        this.loadAssets();
+        loadAssets();
     }
 
-    loadAssets() {
-        this.loadAudio();
-        this.loadImages();
-        this.loadSpritesheets();
+    function destroy() {
+        if (loadingBar) loadingBar.destroy();
     }
 
-    loadAudio() {
-        this.load.audio('bgScore', 'assets/audio/Philipp_Weigl_-_06_-_Full_of_Stars.mp3');
-        this.load.audio('coinSfx', 'assets/audio/coin.wav');
-    }
+    Object.assign(state, new Phaser.Scene(config.SCENES.LOAD), {
+        // props
+        preload,
+        destroy,
+    });
+    return state;
+};
 
-    loadSpritesheets() {}
-
-    loadImages() {
-        this.load.image('background', 'assets/images/background.png');
-        this.load.image('speaker', 'assets/images/speaker.png');
-        this.load.image('speaker-off', 'assets/images/speaker-off.png');
-    }
-
-    destroy() {
-        if (this.loadingBar) this.loadingBar.destroy();
-    }
-}
+export default LoadScene;
