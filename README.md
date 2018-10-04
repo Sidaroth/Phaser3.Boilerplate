@@ -2,6 +2,8 @@
 
 Phaser 3.14.0 Boilerplate project for rapid development.
 
+Documentation for Phaser: https://photonstorm.github.io/phaser3-docs/Phaser.Scene.html
+
 ## Requirements
 
 -   A modern browser.
