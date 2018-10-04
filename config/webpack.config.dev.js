@@ -100,7 +100,7 @@ module.exports = {
             template: '../node_modules/html-webpack-template/index.ejs',
             title: 'Boilerplate',
             meta: [{ name: 'robots', content: 'noindex,nofollow' }],
-            appMountIds: ['content'],
+            appMountIds: ['game'],
             inject: false,
             minify: {
                 collapseWhitespace: true,

@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import gameConfig from 'configs/gameConfig';
+import resizeCanvas from 'utils/resizeCanvas';
 
 const BootScene = function BootSceneFunc() {
     const state = new Phaser.Scene(gameConfig.SCENES.BOOT);
@@ -10,6 +11,7 @@ const BootScene = function BootSceneFunc() {
     }
 
     function create() {
+        resizeCanvas();
         state.cameras.main.setSize(gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
         state.scene.start(gameConfig.SCENES.LOAD);
     }
