@@ -6,57 +6,61 @@ import * as dat from 'dat.gui';
 /**
  * Layer/Scene for UI elements.
  */
-export default class UI extends Phaser.Scene {
-    constructor() {
-        super(config.SCENES.UI);
-    }
 
-    create() {
-        this.setupDatGui();
-        this.setupPerformanceStats();
-    }
+const UI = function UIFunc() {
+    const state = new Phaser.Scene(config.SCENES.UI);
+    let gui;
+    let stats;
 
-    setupPerformanceStats() {
-        this.fpsStats = new Stats();
-        this.msStats = new Stats();
-        this.fpsStats.setMode(0);
-        this.msStats.setMode(1);
+    function setupPerformanceStats() {
+        stats = new Stats();
+        stats.setMode(0);
 
-        this.fpsStats.domElement.style.position = 'absolute';
-        this.fpsStats.domElement.style.left = '0px';
-        this.fpsStats.domElement.style.top = '0px';
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.top = '0px';
 
-        this.msStats.domElement.style.position = 'absolute';
-        this.msStats.domElement.style.left = '80px';
-        this.msStats.domElement.style.top = '0px';
+        document.body.appendChild(stats.domElement);
 
-        document.body.appendChild(this.fpsStats.domElement);
-        document.body.appendChild(this.msStats.domElement);
-
-        this.events.on('preupdate', () => {
-            this.fpsStats.begin();
-            this.msStats.begin();
+        // TODO cleanup listeners
+        state.events.on('preupdate', () => {
+            stats.begin();
         });
-        this.events.on('postupdate', () => {
-            this.fpsStats.end();
-            this.msStats.end();
+        state.events.on('postupdate', () => {
+            stats.end();
         });
     }
 
-    setupDatGui() {
-        this.gui = new dat.GUI();
-        this.gui.addFolder('Test folder');
+    function setupDatGui() {
+        gui = new dat.GUI();
+        gui.addFolder('Test folder');
 
-        this.guiData = {
+        state.guiData = {
             name: 'name',
         };
-        const guiController = this.gui.add(this.guiData, 'name');
+        const guiController = gui.add(state.guiData, 'name');
         guiController.onFinishChange((name) => {
             console.log(name);
         });
     }
 
-    bringToTop() {
-        this.scene.bringToTop();
+    function create() {
+        setupDatGui();
+        setupPerformanceStats();
     }
-}
+
+    function destroy() {
+        gui.destroy();
+        stats.end();
+        document.body.removeChild(stats);
+    }
+
+    return Object.assign(state, {
+        // props
+        // methods
+        create,
+        destroy,
+    });
+};
+
+export default UI;

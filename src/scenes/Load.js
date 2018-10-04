@@ -3,7 +3,7 @@ import config from '../config';
 import LoadingBar from '../components/LoadingBar';
 
 const LoadScene = function LoadSceneFunc() {
-    const state = {};
+    const state = new Phaser.Scene(config.SCENES.LOAD);
     let loadingBar;
 
     function loadAudio() {
@@ -42,8 +42,9 @@ const LoadScene = function LoadSceneFunc() {
         if (loadingBar) loadingBar.destroy();
     }
 
-    Object.assign(state, new Phaser.Scene(config.SCENES.LOAD), {
+    Object.assign(state, {
         // props
+        // methods
         preload,
         destroy,
     });
