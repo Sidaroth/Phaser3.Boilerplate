@@ -24,7 +24,7 @@ export default class Game extends Phaser.Scene {
         // After assets are loaded.
         this.UI = new UI();
         this.scene.add(config.SCENES.UI, this.UI, true);
-        this.audioManager = AudioManager().setContainer(this.UI).setPauseOnBlur(true).init();
+        this.audioManager = AudioManager().setScene(this.UI).setPauseOnBlur(true).init();
     }
 
     create() {

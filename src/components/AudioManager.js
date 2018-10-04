@@ -9,7 +9,7 @@ import config from '../config';
 
 const AudioManager = function createAudioManagerFunc() {
     const state = {};
-    let container;
+    let scene;
     let muteIcon;
     const muteIdentifier = `${config.GAME.TITLE.replace(/ /g, '_')}_isMuted`; // replace all spaces with _ for safety
     const soundEffects = new Map();
@@ -18,24 +18,25 @@ const AudioManager = function createAudioManagerFunc() {
     function init() {
         state.setupMute();
         config.AUDIO.musicKeys.forEach((key) => {
-            backgroundMusic.set(key, container.sound.add(key));
+            backgroundMusic.set(key, scene.sound.add(key));
         });
 
         config.AUDIO.sfxKeys.forEach((key) => {
-            soundEffects.set(key, container.sound.add(key));
+            soundEffects.set(key, scene.sound.add(key));
         });
 
         return state;
     }
 
-    function setContainer(newContainer) {
-        container = newContainer;
+    function setScene(newScene) {
+        // TODO move from old to new, if scene is already defined
+        scene = newScene;
         return state;
     }
 
     function setPauseOnBlur(pauseOnBlur) {
-        if (container) {
-            container.sound.pauseOnBlur = pauseOnBlur; // Keep audio playing even when losing focus.
+        if (scene) {
+            scene.sound.pauseOnBlur = pauseOnBlur; // Keep audio playing even when losing focus.
         }
         return state;
     }
@@ -63,10 +64,10 @@ const AudioManager = function createAudioManagerFunc() {
     function _updateMute() {
         if (state.isAudioMuted()) {
             muteIcon.setTexture('speaker-off');
-            container.sound.mute = true;
+            scene.sound.mute = true;
         } else {
             muteIcon.setTexture('speaker');
-            container.sound.mute = false;
+            scene.sound.mute = false;
         }
     }
 
@@ -77,7 +78,7 @@ const AudioManager = function createAudioManagerFunc() {
     }
 
     function setupMute() {
-        muteIcon = container.add.image(1850, 1040, 'speaker');
+        muteIcon = scene.add.image(1850, 1040, 'speaker');
         muteIcon.setScrollFactor(0);
         muteIcon.tint = config.UI_DEFAULT.tint;
         muteIcon.depth = 3;
@@ -99,7 +100,7 @@ const AudioManager = function createAudioManagerFunc() {
         // methods
         init,
         playSfx,
-        setContainer,
+        setScene,
         setPauseOnBlur,
         playBgMusic,
         isAudioMuted,
