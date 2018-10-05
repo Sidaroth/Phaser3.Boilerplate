@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import gameConfig from 'configs/gameConfig';
-import LoadingBar from 'components/LoadingBar';
+import LoadingBar from 'core/LoadingBar';
 import spriteConfig from 'configs/spriteConfig';
 import audioConfig from 'configs/audioConfig';
 

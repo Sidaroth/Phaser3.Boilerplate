@@ -1,5 +1,6 @@
 import isGameEntity from 'components/entities/isGameEntity';
 import pipe from 'utils/pipe';
+import canEmit from 'components/canEmit';
 
 const Player = function PlayerFunc() {
     const state = {};
@@ -9,7 +10,9 @@ const Player = function PlayerFunc() {
     }
 
     const isGameEntityState = isGameEntity(state);
-    return Object.assign(state, isGameEntityState, {
+    const canEmitState = canEmit(state);
+
+    return Object.assign(state, isGameEntityState, canEmitState, {
         // props
         name: 'my nice player',
         // methods

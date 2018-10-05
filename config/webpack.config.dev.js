@@ -27,6 +27,7 @@ module.exports = {
         extensions: ['.js', '.jsx', '.jsm'],
         alias: {
             configs: path.resolve(__dirname, '../src/configs'),
+            core: path.resolve(__dirname, '../src/core'),
             styles: path.resolve(__dirname, '../styles'),
             assets: path.resolve(__dirname, '../assets'),
             scenes: path.resolve(__dirname, '../src/scenes'),

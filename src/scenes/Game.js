@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { List } from 'immutable';
 import gameConfig from 'configs/gameConfig';
 import spriteConfig from 'configs/spriteConfig';
-import AudioManager from 'components/AudioManager';
+import AudioManager from 'core/AudioManager';
 import Player from 'entities/Player';
 import UI from 'scenes/UI';
 import audioConfig from 'configs/audioConfig';
