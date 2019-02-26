@@ -111,7 +111,7 @@ const hasPosition = function hasPositionFunc(state) {
     };
 };
 ```
-Through composing we've essentialy created true private variables that can only be accessed by internal substates alone. Now, the players' `x, y` position is only attainable through the getPosition call. 
+Through composing we've essentialy created true private variables that can only be accessed by internal substates alone. Now, the players' `x, y` position is only attainable through the getPosition call. The reason they do not show up, is that they are not exposed in the final return statement.
 
 
 Further reading:
