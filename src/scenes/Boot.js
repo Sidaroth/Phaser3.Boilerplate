@@ -3,24 +3,25 @@ import gameConfig from 'configs/gameConfig';
 import resizeCanvas from 'utils/resizeCanvas';
 import getFunctionUsage from 'utils/getFunctionUsage';
 
+// TODO create a hasSceneInstance.js for scenes.
 const BootScene = function BootSceneFunc() {
-    const state = new Phaser.Scene(gameConfig.SCENES.BOOT);
-    /**
-     * Preload loading bar and needed fonts etc.
-     */
-    function preload() {}
+    const state = {};
+    const sceneInstance = new Phaser.Scene(gameConfig.SCENES.BOOT);
 
-    function create() {
+    // hook into phasers scene lifecycle.
+    sceneInstance.create = () => {
         resizeCanvas();
-        state.cameras.main.setSize(gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
-        state.scene.start(gameConfig.SCENES.LOAD);
+        sceneInstance.cameras.main.setSize(gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
+        sceneInstance.scene.start(gameConfig.SCENES.LOAD);
+    };
+
+    function getSceneInstance() {
+        return sceneInstance;
     }
 
     const localState = {
-        // props
         // methods
-        preload,
-        create,
+        getSceneInstance,
     };
 
     const states = [{ state, name: 'state' }, { state: localState, name: 'localState' }];

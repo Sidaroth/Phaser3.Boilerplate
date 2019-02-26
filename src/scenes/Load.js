@@ -6,20 +6,21 @@ import audioConfig from 'configs/audioConfig';
 import getFunctionUsage from 'utils/getFunctionUsage';
 
 const LoadScene = function LoadSceneFunc() {
-    const state = new Phaser.Scene(gameConfig.SCENES.LOAD);
+    const state = {};
+    const sceneInstance = new Phaser.Scene(gameConfig.SCENES.LOAD);
     let loadingBar;
 
     function loadAudio() {
         // load MUSIC
         Object.keys(audioConfig.MUSIC).forEach((objKey) => {
             const AUDIO = audioConfig.MUSIC[objKey];
-            state.load.audio(AUDIO.KEY, AUDIO.PATH);
+            sceneInstance.load.audio(AUDIO.KEY, AUDIO.PATH);
         });
 
         // load SFX
         Object.keys(audioConfig.SFX).forEach((objKey) => {
             const SFX = audioConfig.SFX[objKey];
-            state.load.audio(SFX.KEY, SFX.PATH);
+            sceneInstance.load.audio(SFX.KEY, SFX.PATH);
         });
     }
 
@@ -30,7 +31,7 @@ const LoadScene = function LoadSceneFunc() {
     function loadImages() {
         Object.keys(spriteConfig).forEach((objKey) => {
             const SPRITE = spriteConfig[objKey];
-            state.load.image(SPRITE.KEY, SPRITE.PATH);
+            sceneInstance.load.image(SPRITE.KEY, SPRITE.PATH);
         });
     }
 
@@ -41,28 +42,33 @@ const LoadScene = function LoadSceneFunc() {
         loadMaps();
     }
 
-    function preload() {
-        loadingBar = createLoadingBar(state);
+    function getSceneInstance() {
+        return sceneInstance;
+    }
+
+    // hook into phasers scene lifecycle.
+    sceneInstance.preload = () => {
+        loadingBar = createLoadingBar(sceneInstance);
         loadingBar.setPosition({ x: gameConfig.GAME.VIEWWIDTH / 2, y: gameConfig.GAME.VIEWHEIGHT / 2 });
         loadingBar.setSize({ w: gameConfig.GAME.VIEWWIDTH * 0.4, h: gameConfig.GAME.VIEWHEIGHT * 0.025 });
 
-        state.load.on('complete', () => {
-            state.scene.start(gameConfig.SCENES.GAME);
-            state.destroy();
+        sceneInstance.load.on('complete', () => {
+            sceneInstance.scene.start(gameConfig.SCENES.GAME);
+            sceneInstance.destroy();
         });
 
         loadAssets();
-    }
+    };
 
-    function destroy() {
+    // hook into phasers scene lifecycle.
+    sceneInstance.destroy = () => {
         if (loadingBar) loadingBar.destroy();
-    }
+    };
 
     const localState = {
         // props
         // methods
-        preload,
-        destroy,
+        getSceneInstance,
     };
 
     const states = [{ state, name: 'state' }, { state: localState, name: 'localState' }];

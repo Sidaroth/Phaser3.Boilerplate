@@ -14,20 +14,24 @@ import pipe from 'utils/pipe';
  * Responsible for delegating the various levels, holding the various core systems and such.
  */
 const Game = function GameFunc() {
-    const state = new Phaser.Scene(gameConfig.SCENES.GAME);
+    const state = {};
+    const sceneInstance = new Phaser.Scene(gameConfig.SCENES.GAME);
     let audioManager;
     let entities = List([]);
     let UIScene;
     let background;
+
+    function getSceneInstance() {
+        return sceneInstance;
+    }
 
     function createCoin() {
         audioManager.playSfx(audioConfig.SFX.COIN.KEY);
     }
 
     function cameraSetup() {
-        // state.cameras.main.startFollow(state.player); // or whatever else.
-        state.cameras.main.setViewport(0, 0, gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
-        state.cameras.main.setZoom(0.8);
+        sceneInstance.cameras.main.setViewport(0, 0, gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
+        sceneInstance.cameras.main.setZoom(0.8);
     }
 
     function addEntities() {
@@ -38,45 +42,42 @@ const Game = function GameFunc() {
         }
 
         // Log a player entity example, same as in readme.md
-        console.log(entities[0]);
+        console.log(entities.get(0));
         entities.forEach((e) => {
             e.printInfo();
         });
     }
 
-    function init() {
+    sceneInstance.init = () => {
         // After assets are loaded.
         UIScene = UI();
-        state.scene.add(gameConfig.SCENES.UI, UIScene, true);
+        sceneInstance.scene.add(gameConfig.SCENES.UI, UIScene, true);
         audioManager = AudioManager()
             .setScene(UIScene)
             .setPauseOnBlur(true)
             .init();
-    }
+    };
 
-    function create() {
-        background = state.add.image(0, 0, spriteConfig.BACKGROUND.KEY);
+    sceneInstance.create = () => {
+        background = sceneInstance.add.image(0, 0, spriteConfig.BACKGROUND.KEY);
         background.setOrigin(0, 0);
         audioManager.playMusic();
         createCoin();
         addEntities();
         cameraSetup();
-    }
+    };
 
-    function update(time, delta) {}
+    sceneInstance.update = (time, delta) => {};
 
-    function destroy() {
-        if (background) state.background.destroy();
+    sceneInstance.destroy = () => {
+        if (background) sceneInstance.background.destroy();
         if (UI) UI.destroy();
-    }
+    };
 
     const localState = {
         // props
         // methods
-        init,
-        create,
-        update,
-        destroy,
+        getSceneInstance,
     };
 
     const canListenState = canListen(state);
