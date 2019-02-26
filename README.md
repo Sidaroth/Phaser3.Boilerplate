@@ -62,7 +62,7 @@ export default Player;
 
 In essence what happens here, is that when Player() is called, an Object is created that has all the functionality of the different substates/components provided. The localState object describes the internal/local state of the player. This is where any variables and functions that concern the player itself will live. The states[] array is where all substates/components that will make up the final object are described. The naming/object notation used within the array, is mainly there for debugging purposes. 
 
-How do we then link the different components together, such that when a function is called on the Player object, all states that needs know about it gets called properly? The solution we apply is to use the Pipe() function, as can be seen above in `printInfo: pipe(...)`. It is important to note here however, that object composing does not equal function composing, which is often done by a 'reverse' pipe operation, and combined with curry, which we will not cover here. A few links on functional composing can be found in further reading below.
+How do we then link the different components together, such that when a function is called on the Player object, all states that needs know about it gets called properly? The solution we apply is to use the Pipe() function, as can be seen above in `printInfo: pipe(...)`. It is important to note here however, that object composing does not equal function composing, which is often done by a 'reverse' pipe operation, and combined with curry, which we will not cover here. A few links on function composing can be found in further reading below.
 
 To better understand how pipe works, we'll take a closer look at the isGameEntity state. 
 ```javascript
