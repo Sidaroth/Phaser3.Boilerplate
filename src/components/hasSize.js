@@ -2,7 +2,7 @@ const hasSize = function hasSizeFunc(state) {
     let width = 0;
     let height = 0;
 
-    function setSize({ width: wp, height: hp }) {
+    function setSize({ w: wp, h: hp }) {
         width = wp;
         height = hp;
 
@@ -19,6 +19,10 @@ const hasSize = function hasSizeFunc(state) {
         return hp;
     }
 
+    function getSize() {
+        return { w: width, h: height };
+    }
+
     function getWidth() {
         return width;
     }
@@ -33,6 +37,7 @@ const hasSize = function hasSizeFunc(state) {
         setSize,
         setWidth,
         setHeight,
+        getSize,
         getWidth,
         getHeight,
     };
