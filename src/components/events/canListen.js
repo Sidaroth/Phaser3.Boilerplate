@@ -1,4 +1,4 @@
-import messageBus from 'core/MessageBus';
+import messageBus from 'core/getMessageBus';
 
 const canListen = function canListenFunc(state) {
     const listeners = [];

@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import gameConfig from 'configs/gameConfig';
-import LoadingBar from 'core/LoadingBar';
+import createLoadingBar from 'core/createLoadingBar';
 import spriteConfig from 'configs/spriteConfig';
 import audioConfig from 'configs/audioConfig';
 import getFunctionUsage from 'utils/getFunctionUsage';
@@ -10,9 +10,16 @@ const LoadScene = function LoadSceneFunc() {
     let loadingBar;
 
     function loadAudio() {
-        Object.keys(audioConfig).forEach((objKey) => {
-            const AUDIO = audioConfig[objKey];
+        // load MUSIC
+        Object.keys(audioConfig.MUSIC).forEach((objKey) => {
+            const AUDIO = audioConfig.MUSIC[objKey];
             state.load.audio(AUDIO.KEY, AUDIO.PATH);
+        });
+
+        // load SFX
+        Object.keys(audioConfig.SFX).forEach((objKey) => {
+            const SFX = audioConfig.SFX[objKey];
+            state.load.audio(SFX.KEY, SFX.PATH);
         });
     }
 
@@ -35,7 +42,7 @@ const LoadScene = function LoadSceneFunc() {
     }
 
     function preload() {
-        loadingBar = LoadingBar();
+        loadingBar = createLoadingBar();
         loadingBar.init(state, gameConfig.GAME.VIEWWIDTH / 2, gameConfig.GAME.VIEWHEIGHT / 2);
         state.load.on('complete', () => {
             state.scene.start(gameConfig.SCENES.GAME);

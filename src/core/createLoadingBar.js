@@ -3,14 +3,16 @@ import gameConfig from 'configs/gameConfig';
 /**
  * A multipurpose loading bar that can be added to any scene.
  */
-const LoadingBar = function LoadingBarFunc() {
+const createLoadingBar = function createLoadingBarFunc() {
     const state = {};
+
     let x = 0;
     let y = 0;
     let parentScene;
     let loaderBg;
     let progressBar;
     let text;
+
     const width = gameConfig.GAME.VIEWWIDTH * 0.4;
     const height = gameConfig.GAME.VIEWHEIGHT * 0.025;
     const padding = 2;
@@ -56,4 +58,4 @@ const LoadingBar = function LoadingBarFunc() {
         destroy,
     });
 };
-export default LoadingBar;
+export default createLoadingBar;

@@ -2,12 +2,12 @@ import Phaser from 'phaser';
 import { List } from 'immutable';
 import gameConfig from 'configs/gameConfig';
 import spriteConfig from 'configs/spriteConfig';
-import AudioManager from 'core/AudioManager';
-import Player from 'entities/Player';
+import AudioManager from 'core/createAudioManager';
+import createPlayer from 'entities/createPlayer';
 import UI from 'scenes/UI';
 import audioConfig from 'configs/audioConfig';
 import getFunctionUsage from 'utils/getFunctionUsage';
-import canListen from 'components/canListen';
+import canListen from 'components/events/canListen';
 import pipe from 'utils/pipe';
 
 /**
@@ -21,7 +21,7 @@ const Game = function GameFunc() {
     let background;
 
     function createCoin() {
-        audioManager.playSfx(audioConfig.COIN_SFX.KEY);
+        audioManager.playSfx(audioConfig.SFX.COIN.KEY);
     }
 
     function cameraSetup() {
@@ -32,9 +32,12 @@ const Game = function GameFunc() {
 
     function addEntities() {
         const numberOfEntities = 3;
+
+        console.log(createPlayer());
         for (let i = 0; i < numberOfEntities; i += 1) {
-            entities = entities.push(Player());
+            entities = entities.push(createPlayer());
         }
+
         entities.forEach((e) => {
             e.printInfo();
         });
@@ -53,7 +56,7 @@ const Game = function GameFunc() {
     function create() {
         background = state.add.image(0, 0, spriteConfig.BACKGROUND.KEY);
         background.setOrigin(0, 0);
-        audioManager.playBgMusic();
+        audioManager.playMusic();
         createCoin();
         addEntities();
         cameraSetup();

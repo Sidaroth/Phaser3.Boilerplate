@@ -1,6 +1,6 @@
 import getUUID from 'utils/getUUID';
 
-const Listener = function ListenerFunc(event, fn, once, emitState) {
+const createListener = function createListenerFunc(event, fn, once, emitState) {
     const state = {};
 
     function drop() {
@@ -24,4 +24,4 @@ const Listener = function ListenerFunc(event, fn, once, emitState) {
     });
 };
 
-export default Listener;
+export default createListener;

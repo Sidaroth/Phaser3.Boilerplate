@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 
+// TODO Compose in hasSize and hasPosition as they exist.
 const hasTrigger = function hasTriggerFunc(state) {
     let parentScene;
 
