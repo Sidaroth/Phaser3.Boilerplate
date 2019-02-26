@@ -1,10 +1,10 @@
 import canEmit from 'components/events/canEmit';
 import getFunctionUsage from 'utils/getFunctionUsage';
 
-const getMessageBus = function getMessageBusFunc() {
+const createMessageBus = function createMessageBusFunc() {
     const state = {};
 
-    const canEmitState = canEmit();
+    const canEmitState = canEmit(state);
 
     const localState = {
         // props
@@ -19,5 +19,4 @@ const getMessageBus = function getMessageBusFunc() {
     });
 };
 
-const messageBusObj = getMessageBus();
-export default messageBusObj;
+export default createMessageBus;

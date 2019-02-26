@@ -4,12 +4,13 @@
         "paths": {
             "configs/*": ["src/configs/*"],
             "core/*": ["src/core/*"],
+            "styles/*": ["styles/*"],
+            "assets/*": ["assets/*"],
             "scenes/*": ["src/scenes/*"],
             "entities/*": ["src/entities/*"],
             "components/*": ["src/components/*"],
             "utils/*": ["src/utils/*"],
-            "styles/*": ["styles/*"],
-            "assets/*": ["assets/*"]
+            "root/*": ["src/"],
         }
     }
 }

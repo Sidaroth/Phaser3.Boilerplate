@@ -6,6 +6,8 @@ import BootScene from 'scenes/Boot';
 import LoadScene from 'scenes/Load';
 import Game from 'scenes/Game';
 import resizeCanvas from 'utils/resizeCanvas';
+import store from './store';
+import createMessageBus from 'core/createMessageBus';
 
 const phaserConfig = {
     type: Phaser.WEBGL,
@@ -16,6 +18,7 @@ const phaserConfig = {
     scene: [BootScene, LoadScene, Game],
 };
 
+store.messageBus = createMessageBus();
 const game = new Phaser.Game(phaserConfig);
 
 window.addEventListener('resize', resizeCanvas);

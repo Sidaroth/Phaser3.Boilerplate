@@ -1,4 +1,4 @@
-import messageBus from 'core/getMessageBus';
+import store from 'root/store';
 
 const canListen = function canListenFunc(state) {
     const listeners = [];
@@ -12,11 +12,11 @@ const canListen = function canListenFunc(state) {
     }
 
     function listenGlobal(event, fn, context) {
-        listeners.push(messageBus.on(event, fn, context));
+        listeners.push(store.messageBus.on(event, fn, context));
     }
 
     function listenOnceGlobal(event, fn, context) {
-        listeners.push(messageBus.once(event, fn, context));
+        listeners.push(store.messageBus.once(event, fn, context));
     }
 
     function destroy() {

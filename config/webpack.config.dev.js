@@ -34,6 +34,7 @@ module.exports = {
             entities: path.resolve(__dirname, '../src/entities'),
             components: path.resolve(__dirname, '../src/components'),
             utils: path.resolve(__dirname, '../src/utils'),
+            root: path.resolve(__dirname, '../src'),
         },
     },
     devServer: {

@@ -1,27 +1,20 @@
-// import messageBus from 'core/getMessageBus';
+import store from 'root/store';
 import Phaser from 'phaser';
 import createListener from 'core/createListener';
 
-// TODO figure out how to do the global emits properly to avoid circular dependencies.
 const canEmit = function canEmitFunc(state) {
-    let localEmitter;
+    const localEmitter = new Phaser.Events.EventEmitter();
     const listeners = [];
 
-    // function emitGlobal(event, data) {
-    // messageBus.emit(event, data);
-    // }
+    function emitGlobal(event, data) {
+        store.messageBus.emit(event, data);
+    }
 
     function emit(event, data) {
-        if (!localEmitter) {
-            localEmitter = new Phaser.Events.EventEmitter();
-        }
         localEmitter.emit(event, data);
     }
 
     function on(event, fn, context) {
-        if (!localEmitter) {
-            localEmitter = new Phaser.Events.EventEmitter();
-        }
         localEmitter.on(event, fn, context);
         const listener = createListener(event, fn, false, state);
         listeners.push(listener);
@@ -29,9 +22,6 @@ const canEmit = function canEmitFunc(state) {
     }
 
     function once(event, fn, context) {
-        if (!localEmitter) {
-            localEmitter = new Phaser.Events.EventEmitter();
-        }
         localEmitter.once(event, fn, context);
         const listener = createListener(event, fn, true, state);
         listeners.push(listener);
@@ -63,7 +53,7 @@ const canEmit = function canEmitFunc(state) {
     return {
         // props
         // methods
-        // emitGlobal,
+        emitGlobal,
         emit,
         on,
         once,
