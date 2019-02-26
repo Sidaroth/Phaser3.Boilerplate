@@ -47,7 +47,7 @@ const Player = function PlayerFunc() {
         { state: hasPositionState, name: 'hasPosition' },
     ];
 
-    // We compose these substates togheter through using Object.assign when returning a new Player object.
+    // We compose these substates together through using Object.assign when Player() is called.
     return Object.assign(...states.map(s => s.state), {
         // pipes and overrides
         printInfo: pipe(
@@ -77,7 +77,8 @@ const isGameEntity = function isGameEntityFunc(state) {
     };
 };
 ```
-Here we can see that both the Player, and the isGameEntity objects have a printInfo function. How, do we then set this up so that when printInfo() is called on the player, we get both the ID that is present in isGameEntity printed, and the name that is present in Player
+Here we can see that both the Player, and the isGameEntity objects have a printInfo function. How, do we then set this up so that when printInfo() is called on the player, we get both the ID that is present in isGameEntity printed, and the name that is present in the Player object? 
+
 Pipe() comes to the rescue. Pipe() works as expected, if one has any previous experience with any command line scripting. It takes the result of the first function, and passes on to the next one, for an N number of functions. The resulting console log when running player.printInfo() is this:
 
 
@@ -87,6 +88,7 @@ If/when the pipeline operator gets finalized and implemented in browsers, that m
 
 Now that we have gotten this far, it's time to look at what the final Player() object actually contains:
 ![alt text](https://i.imgur.com/VGen7Li.png "Screenshot of the player object.")
+
 In the image above, we can see that we have an id, a name, and the setPosition and getPosition methods that come from the hasPosition state. Here we can make yet another very important observation. If we look at the hasPosition state below, it contains x, and y variables, but these do not show up here, why is this?
 ```javascript
 const hasPosition = function hasPositionFunc(state) {
@@ -118,40 +120,6 @@ Further reading:
 * http://gameprogrammingpatterns.com/component.html
 * https://medium.com/code-monkey/object-composition-in-javascript-2f9b9077b5e6
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Pipeline_operator
-
-### Contributions
-
-Pull requests with features that you believe should be in a phaser boilerplate project is welcome. You may also create issues regarding missing boilerplate.
-
-### Attributions
-
-Default background Soundtrack is Full of Stars, by Philipp Weigl (http://freemusicarchive.org/music/Philipp_Weigl/Sound-trax/Philipp_Weigl_-_Full_of_Stars)
-Used under creative commons license CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/, https://creativecommons.org/licenses/by/4.0/legalcode)
-# Phaser3Boilerplate
-
-Phaser 3.x Boilerplate project for rapid development.
-
-Documentation for Phaser: https://photonstorm.github.io/phaser3-docs/index.html
-
-## Requirements
--   A modern browser.
--   Node.js and NPM
--   (preferably git)
-
-## How to use
-
-1. Clone the repository
-2. Copy into a new folder/repository
-3. Update Package.json and index.html with author/title/etc.
-4. npm install
-5. npm start
-
-### Concerning Object composition
-This project uses a classless, object composing focused architecture, which may be unfamiliar to you. There are several reasons to do this, but the main reason is how adaptive this way of programming is. The basic idea behind it is to compose in the various functionality you want to use in your resulting object. You may in some cases, even think of these objects as pseudo classes. An example from this boilerplate project is the (very simple) player object. It consists of a few different states, that make up all the functionality the player has. 
-
-Further reading:
-http://gameprogrammingpatterns.com/component.html
-https://medium.com/code-monkey/object-composition-in-javascript-2f9b9077b5e6
 
 ### Contributions
 
