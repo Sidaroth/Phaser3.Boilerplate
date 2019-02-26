@@ -79,17 +79,17 @@ const isGameEntity = function isGameEntityFunc(state) {
 ```
 Here we can see that both the Player, and the isGameEntity objects have a printInfo function. We need to set this up so that when printInfo() is called on the player, we get both the ID that is present in isGameEntity, and the name that is present in the Player object printed.
 
-As mentioned above, we do this through applying the Pipe() function. Pipe() works as expected, if one has any previous experience with any command line scripting. It takes the result of the first function, and passes on to the next one, for an N number of functions. The resulting console log when running player.printInfo() is this:
+As mentioned above, we do this through applying the Pipe() function. If one has any previous experience with any command line scripting, how Pipe() works should not come as any surprise. It takes the result of the first function, and passes on to the next one, for an N number of functions. The resulting console log when running player.printInfo() is this:
 
 
 ![alt text](https://i.imgur.com/vHue8rn.png "Screenshot of the console output.")
 
-If/when the pipeline operator gets finalized and implemented in browsers, that may be used instead of the pipe function above. (See further reading below for details.). 
+If the pipeline operator gets finalized and implemented in browsers, that may be used instead of the pipe function above. (See further reading below for details.). 
 
 Now that we have gotten this far, it's time to look at what the final Player() object actually contains:
 ![alt text](https://i.imgur.com/VGen7Li.png "Screenshot of the player object.")
 
-In the image above, we can see that we have an id, a name, and the setPosition and getPosition methods that come from the hasPosition state. Here we can make yet another very important observation. If we look at the hasPosition state below, it contains x, and y variables, but these do not show up here, why is this?
+In the image above, we can see that we have an id, a name, and the setPosition and getPosition methods that come from the hasPosition state. Here we can make yet another very important observation. If we look at the hasPosition state below, it contains both x, and y variables, but these do not show up here, why is this?
 ```javascript
 const hasPosition = function hasPositionFunc(state) {
     let x = 0;
@@ -113,7 +113,7 @@ const hasPosition = function hasPositionFunc(state) {
     };
 };
 ```
-Through composing we've essentialy created true private variables that can only be accessed by internal substates alone. Now, the players' `x, y` position is only attainable through the getPosition call. The reason they do not show up, is that they are not exposed in the final return statement.
+Through composing we've essentialy created true private variables that can only be accessed by internal substates themselves. Now, the players' `x, y` position is only attainable through the getPosition call. The reason they do not show up, is that they are not exposed in the final return statement.
 
 
 Further reading:
