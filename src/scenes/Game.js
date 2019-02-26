@@ -6,6 +6,9 @@ import AudioManager from 'core/AudioManager';
 import Player from 'entities/Player';
 import UI from 'scenes/UI';
 import audioConfig from 'configs/audioConfig';
+import getFunctionUsage from 'utils/getFunctionUsage';
+import canListen from 'components/canListen';
+import pipe from 'utils/pipe';
 
 /**
  * Responsible for delegating the various levels, holding the various core systems and such.
@@ -63,13 +66,29 @@ const Game = function GameFunc() {
         if (UI) UI.destroy();
     }
 
-    return Object.assign(state, {
+    const localState = {
         // props
         // methods
         init,
         create,
         update,
         destroy,
+    };
+
+    const canListenState = canListen(state);
+    const states = [{ state, name: 'state' }, { state: localState, name: 'localState' }, { state: canListenState, name: 'canListen' }];
+
+    getFunctionUsage(states, 'Game');
+    return Object.assign(...states.map(s => s.state), {
+        // pipes and overrides
+        update: pipe(
+            state.update, // Phaser 'inheritance' update()/super call to phaser.scene
+            localState.update, // internal/local state update()
+        ),
+        destroy: pipe(
+            localState.destroy,
+            canListenState.destroy,
+        ),
     });
 };
 
