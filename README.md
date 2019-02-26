@@ -17,7 +17,7 @@ Documentation for Phaser: https://photonstorm.github.io/phaser3-docs/index.html
 4. npm install
 5. npm start
 
-### Concerning Object composition
+### Concerning object composing
 This project uses a classless, object composing focused architecture, which may be unfamiliar to you. There are several reasons to do this, but the main reason is how adaptive this way of programming is. The basic idea behind it is to compose in the various functionality you want to use in your resulting object. You may in some cases, even think of these objects as pseudo classes. An example from this boilerplate project is the (simplified!) player object. It consists of a few different states, that make up all the functionality the player has. 
 ```javascript
 const Player = function PlayerFunc() {
@@ -60,9 +60,9 @@ const Player = function PlayerFunc() {
 export default Player;
 ```
 
-In essence what happens here, is that when a player object is created, an Object is created that has all the functionality of the different substates/components provided. The localState object describes the internal/local state of the player. This is where any variables and functions that concern the player itself will live. The states[] array is where all substates/components that will make up the final object are described. The naming/object notation used within the array, is mainly there for debugging purposes. 
+In essence what happens here, is that when Player() is called, an Object is created that has all the functionality of the different substates/components provided. The localState object describes the internal/local state of the player. This is where any variables and functions that concern the player itself will live. The states[] array is where all substates/components that will make up the final object are described. The naming/object notation used within the array, is mainly there for debugging purposes. 
 
-How do we then link the different components together, such that when a function is called on the Player object, all states that needs know about it gets called properly? The solution we apply is to use the Pipe() function, as can be seen above in `printInfo: pipe(...)`
+How do we then link the different components together, such that when a function is called on the Player object, all states that needs know about it gets called properly? The solution we apply is to use the Pipe() function, as can be seen above in `printInfo: pipe(...)`. It is important to note here however, that object composing does not equal function composing, which is often done by a 'reverse' pipe operation, and combined with curry, which we will not cover here. A few links on functional composing can be found in further reading below.
 
 To better understand how pipe works, we'll take a closer look at the isGameEntity state. 
 ```javascript
@@ -120,6 +120,9 @@ Further reading:
 * http://gameprogrammingpatterns.com/component.html
 * https://medium.com/code-monkey/object-composition-in-javascript-2f9b9077b5e6
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Pipeline_operator
+* https://blakeembrey.com/articles/2014/01/compose-functions-javascript/
+* https://medium.com/javascript-scene/curry-and-function-composition-2c208d774983
+* https://hackernoon.com/javascript-functional-composition-for-every-day-use-22421ef65a10
 
 ### Contributions
 
