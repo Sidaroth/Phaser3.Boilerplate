@@ -77,7 +77,7 @@ const isGameEntity = function isGameEntityFunc(state) {
     };
 };
 ```
-Here we can see that both the Player, and the isGameEntity objects have a printInfo function. We need to set this up so that when printInfo() is called on the player, we get both the ID that is present in isGameEntity printed, and the name that is present in the Player object? 
+Here we can see that both the Player, and the isGameEntity objects have a printInfo function. We need to set this up so that when printInfo() is called on the player, we get both the ID that is present in isGameEntity, and the name that is present in the Player object printed.
 
 As mentioned above, we do this through applying the Pipe() function. Pipe() works as expected, if one has any previous experience with any command line scripting. It takes the result of the first function, and passes on to the next one, for an N number of functions. The resulting console log when running player.printInfo() is this:
 
