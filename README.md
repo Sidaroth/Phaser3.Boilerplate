@@ -1,6 +1,6 @@
 # Phaser3Boilerplate
 
-Phaser 3.14.0 Boilerplate project for rapid development.
+Phaser 3.x Boilerplate project for rapid development.
 
 Documentation for Phaser: https://photonstorm.github.io/phaser3-docs/index.html
 
