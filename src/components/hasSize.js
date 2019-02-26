@@ -10,12 +10,12 @@ const hasSize = function hasSizeFunc(state) {
     }
 
     function setWidth(wp) {
-        state.setSize(wp, height);
+        state.setSize({ w: wp, h: height });
         return wp;
     }
 
     function setHeight(hp) {
-        state.setSize(width, hp);
+        state.setSize({ w: width, h: hp });
         return hp;
     }
 
