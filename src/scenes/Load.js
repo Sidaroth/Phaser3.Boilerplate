@@ -42,8 +42,10 @@ const LoadScene = function LoadSceneFunc() {
     }
 
     function preload() {
-        loadingBar = createLoadingBar();
-        loadingBar.init(state, gameConfig.GAME.VIEWWIDTH / 2, gameConfig.GAME.VIEWHEIGHT / 2);
+        loadingBar = createLoadingBar(state);
+        loadingBar.setPosition({ x: gameConfig.GAME.VIEWWIDTH / 2, y: gameConfig.GAME.VIEWHEIGHT / 2 });
+        loadingBar.setSize({ w: gameConfig.GAME.VIEWWIDTH * 0.4, h: gameConfig.GAME.VIEWHEIGHT * 0.025 });
+
         state.load.on('complete', () => {
             state.scene.start(gameConfig.SCENES.GAME);
             state.destroy();

@@ -33,11 +33,12 @@ const Game = function GameFunc() {
     function addEntities() {
         const numberOfEntities = 3;
 
-        console.log(createPlayer());
         for (let i = 0; i < numberOfEntities; i += 1) {
             entities = entities.push(createPlayer());
         }
 
+        // Log a player entity example, same as in readme.md
+        console.log(entities[0]);
         entities.forEach((e) => {
             e.printInfo();
         });

@@ -1,40 +1,40 @@
-import gameConfig from 'configs/gameConfig';
 import hasPosition from 'components/hasPosition';
 import hasSize from 'components/hasSize';
+import pipe from 'utils/pipe';
 
 /**
  * A multipurpose loading bar that can be added to any scene.
  */
-const createLoadingBar = function createLoadingBarFunc() {
+const createLoadingBar = function createLoadingBarFunc(originalScene) {
     const state = {};
     const padding = 2;
     const textPaddingFromBar = 10;
+    const parentScene = originalScene;
 
-    let parentScene;
     let loaderBg;
     let progressBar;
     let text;
+    let currentProgress = 0;
 
+    /**
+     * @private
+     */
     function updateProgressBar(progress) {
-        if (!progressBar) {
-            progressBar = parentScene.add.graphics();
-        }
-
+        currentProgress = progress;
         const pos = state.getPosition();
         progressBar.clear();
         progressBar.fillStyle(0xcccccc, 1);
-        progressBar.fillRect(pos.x - state.getWidth() / 2, pos.y - state.getHeight() / 2, state.getWidth() * progress, state.getHeight());
+        progressBar.fillRect(
+            pos.x - state.getWidth() / 2,
+            pos.y - state.getHeight() / 2,
+            state.getWidth() * currentProgress,
+            state.getHeight(),
+        );
     }
 
-    function init(newParent, newX = 400, newY = 400) {
-        parentScene = newParent;
-
-        state.setPosition({ x: newX, y: newY });
-        state.setSize({ w: gameConfig.GAME.VIEWWIDTH * 0.4, h: gameConfig.GAME.VIEWHEIGHT * 0.025 });
-
-
+    function onChange() {
         const pos = state.getPosition();
-        loaderBg = parentScene.add.graphics();
+        loaderBg.clear();
         loaderBg.fillStyle(0x444444, 1);
         loaderBg.fillRect(
             pos.x - state.getWidth() / 2 - padding,
@@ -43,6 +43,27 @@ const createLoadingBar = function createLoadingBarFunc() {
             state.getHeight() + padding * 2,
         );
 
+        progressBar.clear();
+        progressBar.fillStyle(0xcccccc, 1);
+        progressBar.fillRect(
+            pos.x - state.getWidth() / 2,
+            pos.y - state.getHeight() / 2,
+            state.getWidth() * currentProgress,
+            state.getHeight(),
+        );
+
+        text.x = pos.x;
+        text.y = pos.y - (text.height + textPaddingFromBar);
+    }
+
+    /**
+     * @constructor
+     * @private
+     */
+    function init() {
+        const pos = state.getPosition();
+        loaderBg = parentScene.add.graphics();
+        progressBar = parentScene.add.graphics();
         text = parentScene.add.text(pos.x, pos.y, 'Loading...', {
             font: '16px Arial',
             fill: '#eeeeee',
@@ -63,7 +84,6 @@ const createLoadingBar = function createLoadingBarFunc() {
     const hasPositionState = hasPosition(state);
     const hasSizeState = hasSize(state);
     const localState = {
-        init,
         destroy,
     };
 
@@ -74,8 +94,19 @@ const createLoadingBar = function createLoadingBarFunc() {
         { state: hasSizeState, name: 'hasSize' },
     ];
 
-    return Object.assign(...states.map(s => s.state), {
+    const returnState = Object.assign(...states.map(s => s.state), {
         // overrides and pipes.
+        setPosition: pipe(
+            hasPositionState.setPosition,
+            onChange,
+        ),
+        setSize: pipe(
+            hasSizeState.setSize,
+            onChange,
+        ),
     });
+
+    init();
+    return returnState;
 };
 export default createLoadingBar;

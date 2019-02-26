@@ -78,7 +78,7 @@ module.exports = {
         'sort-imports': 'off',
         'import/first': 'off',
         // https://blog.javascripting.com/2015/09/07/fine-tuning-airbnbs-eslint-config/
-        'max-len': [1, 140, 2, { ignoreComments: true }],
+        'max-len': [1, 200, 2, { ignoreComments: true }],
         'no-cond-assign': [2, 'except-parens'],
         radix: 0,
         'no-unused-vars': [1, { vars: 'local', args: 'none' }],
