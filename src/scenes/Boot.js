@@ -1,7 +1,7 @@
 import gameConfig from 'configs/gameConfig';
 import resizeCanvas from 'utils/resizeCanvas';
-import getFunctionUsage from 'utils/getFunctionUsage';
 import isScene from 'components/isScene';
+import createState from 'utils/createState';
 
 // TODO create a hasSceneInstance.js for scenes.
 const BootScene = function BootSceneFunc() {
@@ -19,13 +19,9 @@ const BootScene = function BootSceneFunc() {
         create,
     };
 
-    const isSceneState = isScene(state, gameConfig.SCENES.BOOT);
-
-    const states = [{ state, name: 'state' }, { state: localState, name: 'localState' }, { state: isSceneState, name: 'isScene' }];
-
-    getFunctionUsage(states, 'Boot');
-    return Object.assign(...states.map(s => s.state), {
-        // pipes and overrides
+    return createState('Boot', state, {
+        localState,
+        isScene: isScene(state, gameConfig.SCENES.BOOT),
     });
 };
 

@@ -1,9 +1,9 @@
-import getFunctionUsage from 'utils/getFunctionUsage';
 import canEmit from 'components/events/canEmit';
 import hasSize from 'components/hasSize';
 import hasPosition from 'components/hasPosition';
 import pipe from 'utils/pipe';
 import eventConfig from 'configs/eventConfig';
+import createState from 'utils/createState';
 
 const createButton = function createButtonFunc(parent) {
     const state = {};
@@ -53,7 +53,7 @@ const createButton = function createButtonFunc(parent) {
 
         textElem.text = `${text}`;
         textElem.x = state.getX() + state.getWidth() / 2 - textElem.width / 2;
-        textElem.y = state.getY() - (textElem.height / 2) + state.getHeight() / 2;
+        textElem.y = state.getY() - textElem.height / 2 + state.getHeight() / 2;
     }
 
     function destroy() {
@@ -73,10 +73,6 @@ const createButton = function createButtonFunc(parent) {
         }
     }
 
-    const canEmitState = canEmit(state);
-    const hasPositionState = hasPosition(state);
-    const hasSizeState = hasSize(state);
-
     const localState = {
         // props
         // methods
@@ -86,30 +82,25 @@ const createButton = function createButtonFunc(parent) {
         destroy,
     };
 
-    const states = [
-        { state, name: 'state' },
-        { state: localState, name: 'localState' },
-        { state: canEmitState, name: 'canEmit' },
-        { state: hasPositionState, name: 'hasPosition' },
-        { state: hasSizeState, name: 'hasSize' },
-    ];
-
-    getFunctionUsage(states, 'createButton');
-    return Object.assign(...states.map(s => s.state), {
-        // pipes and overrides
-        destroy: pipe(
-            localState.destroy,
-            canEmitState.destroy,
-        ),
+    const states = {
+        localState,
+        canEmit: canEmit(state),
+        hasPosition: hasPosition(state),
+        hasSize: hasSize(state),
+    };
+    const overrides = {
+        // overrides
+        // manual pipe because the functions doesn't have the same name, and order of execution is important
         setPosition: pipe(
-            hasPositionState.setPosition,
+            states.hasPosition.setPosition,
             localState.refresh,
         ),
         setSize: pipe(
-            hasSizeState.setSize,
+            states.hasSize.setSize,
             localState.refresh,
         ),
-    });
+    };
+    return createState('createButton', state, states, overrides);
 };
 
 export default createButton;

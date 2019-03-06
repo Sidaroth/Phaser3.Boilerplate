@@ -1,9 +1,8 @@
 import Phaser from 'phaser';
-import pipe from 'utils/pipe';
 import hasPosition from 'components/hasPosition';
 import hasSize from 'components/hasSize';
-import getFunctionUsage from 'utils/getFunctionUsage';
 import isGameEntity from 'components/entities/isGameEntity';
+import createState from 'utils/createState';
 
 const createTriggerZone = function createTriggerZoneFunc(originalScene) {
     const state = {};
@@ -82,22 +81,11 @@ const createTriggerZone = function createTriggerZoneFunc(originalScene) {
         onEntityEnteredRange: e => e,
     };
 
-    const isGameEntityState = isGameEntity(state);
-    const hasPositionState = hasPosition(state);
-    const hasSizeState = hasSize(state);
-
-    const states = [
-        { state, name: 'state' },
-        { state: localState, name: 'localState' },
-        { state: hasSizeState, name: 'hasSize' },
-        { state: hasPositionState, name: 'hasPosition' },
-        { state: isGameEntityState, name: 'isGameEntity' },
-    ];
-
-    getFunctionUsage(states, 'createTriggerZone');
-    return Object.assign(...states.map(s => s.state), {
-        setSize: pipe(hasSizeState.setSize, localState.setSize),
-        setPosition: pipe(hasPositionState.setPosition, localState.setPosition),
+    return createState('createTriggerZone', state, {
+        localState,
+        isGameEntity: isGameEntity(state),
+        hasPosition: hasPosition(state),
+        hasSize: hasSize(state),
     });
 };
 
