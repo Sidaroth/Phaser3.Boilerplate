@@ -9,29 +9,26 @@ import audioConfig from 'configs/audioConfig';
 import getFunctionUsage from 'utils/getFunctionUsage';
 import canListen from 'components/events/canListen';
 import pipe from 'utils/pipe';
+import isScene from 'components/isScene';
+import createState from 'utils/createState';
 
 /**
  * Responsible for delegating the various levels, holding the various core systems and such.
  */
 const Game = function GameFunc() {
     const state = {};
-    const sceneInstance = new Phaser.Scene(gameConfig.SCENES.GAME);
     let audioManager;
     let entities = List([]);
     let UIScene;
     let background;
-
-    function getSceneInstance() {
-        return sceneInstance;
-    }
 
     function createCoin() {
         audioManager.playSfx(audioConfig.SFX.COIN.KEY);
     }
 
     function cameraSetup() {
-        sceneInstance.cameras.main.setViewport(0, 0, gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
-        sceneInstance.cameras.main.setZoom(0.8);
+        state.getScene().cameras.main.setViewport(0, 0, gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
+        state.getScene().cameras.main.setZoom(0.8);
     }
 
     function addEntities() {
@@ -48,52 +45,45 @@ const Game = function GameFunc() {
         });
     }
 
-    sceneInstance.init = () => {
+    function init() {
         // After assets are loaded.
         UIScene = UI();
-        sceneInstance.scene.add(gameConfig.SCENES.UI, UIScene, true);
+        state.getScene().scene.add(gameConfig.SCENES.UI, UIScene.getScene(), true);
         audioManager = AudioManager()
-            .setScene(UIScene)
+            .setScene(UIScene.getScene())
             .setPauseOnBlur(true)
             .init();
-    };
+    }
 
-    sceneInstance.create = () => {
-        background = sceneInstance.add.image(0, 0, spriteConfig.BACKGROUND.KEY);
+    function create() {
+        background = state.getScene().add.image(0, 0, spriteConfig.BACKGROUND.KEY);
         background.setOrigin(0, 0);
         audioManager.playMusic();
         createCoin();
         addEntities();
         cameraSetup();
-    };
+    }
 
-    sceneInstance.update = (time, delta) => {};
+    function update(time, delta) {}
 
-    sceneInstance.destroy = () => {
-        if (background) sceneInstance.background.destroy();
+    function destroy() {
+        if (background) state.getScene().background.destroy();
         if (UI) UI.destroy();
-    };
+    }
 
     const localState = {
         // props
         // methods
-        getSceneInstance,
+        init,
+        create,
+        update,
+        destroy,
     };
 
-    const canListenState = canListen(state);
-    const states = [{ state, name: 'state' }, { state: localState, name: 'localState' }, { state: canListenState, name: 'canListen' }];
-
-    getFunctionUsage(states, 'Game');
-    return Object.assign(...states.map(s => s.state), {
-        // pipes and overrides
-        update: pipe(
-            state.update, // Phaser 'inheritance' update()/super call to phaser.scene
-            localState.update, // internal/local state update()
-        ),
-        destroy: pipe(
-            localState.destroy,
-            canListenState.destroy,
-        ),
+    return createState('Game', state, {
+        localState,
+        canListen: canListen(state),
+        isScene: isScene(state, gameConfig.SCENES.GAME),
     });
 };
 

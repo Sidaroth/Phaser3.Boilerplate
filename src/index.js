@@ -15,7 +15,7 @@ const phaserConfig = {
     height: gameConfig.GAME.VIEWHEIGHT,
     backgroundColor: '#555555',
     parent: 'game',
-    scene: [BootScene().getSceneInstance(), LoadScene().getSceneInstance(), Game().getSceneInstance()],
+    scene: [BootScene().getScene(), LoadScene().getScene(), Game().getScene()],
 };
 
 store.messageBus = createMessageBus();
