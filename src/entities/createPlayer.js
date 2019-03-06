@@ -4,13 +4,14 @@ import hasPosition from 'components/hasPosition';
 import createState from 'utils/createState';
 
 const createPlayer = function createPlayerFunc() {
-    // This is the base state, which in some cases will be an 'inherited' value, i.e Phaser.Scene
+    // variables and functions here are private unless listed below in localState.
     const state = {};
 
     function printInfo() {
         console.log(`name: %c${state.name}`, 'color: red');
     }
 
+    // functions and properties listed here will be public.
     const localState = {
         // props
         name: 'Player name',

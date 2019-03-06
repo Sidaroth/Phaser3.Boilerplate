@@ -55,7 +55,6 @@ const LoadScene = function LoadSceneFunc() {
         loadAssets();
     }
 
-    // hook into phasers scene lifecycle.
     function destroy() {
         if (loadingBar) loadingBar.destroy();
     }

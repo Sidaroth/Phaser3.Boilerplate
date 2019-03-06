@@ -3,7 +3,6 @@ import resizeCanvas from 'utils/resizeCanvas';
 import isScene from 'components/isScene';
 import createState from 'utils/createState';
 
-// TODO create a hasSceneInstance.js for scenes.
 const BootScene = function BootSceneFunc() {
     const state = {};
 
