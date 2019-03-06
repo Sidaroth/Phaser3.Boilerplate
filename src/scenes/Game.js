@@ -46,10 +46,7 @@ const Game = function GameFunc() {
         // After assets are loaded.
         UIScene = UI();
         state.getScene().scene.add(gameConfig.SCENES.UI, UIScene.getScene(), true);
-        audioManager = AudioManager()
-            .setScene(UIScene.getScene())
-            .setPauseOnBlur(true)
-            .init();
+        audioManager = AudioManager(UIScene.getScene());
     }
 
     function create() {

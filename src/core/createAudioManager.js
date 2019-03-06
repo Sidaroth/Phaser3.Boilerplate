@@ -3,10 +3,12 @@ import spriteConfig from 'configs/spriteConfig';
 import audioConfig from 'configs/audioConfig';
 import createState from 'utils/createState';
 
-const createAudioManager = function createAudioManagerFunc() {
+const createAudioManager = function createAudioManagerFunc(parentScene) {
+    if (!parentScene) throw new Error('A parent scene must be specified.');
+
     const state = {};
 
-    let scene;
+    let scene = parentScene;
     let muteIcon;
     let currentSong;
 
@@ -37,7 +39,7 @@ const createAudioManager = function createAudioManagerFunc() {
         _updateMute();
     }
 
-    function init() {
+    function __constructor() {
         _setupMute();
 
         Object.keys(audioConfig.MUSIC).forEach((objKey) => {
@@ -49,6 +51,8 @@ const createAudioManager = function createAudioManagerFunc() {
             const SFX = audioConfig.SFX[objKey];
             soundEffects.set(SFX.KEY, scene.sound.add(SFX.KEY));
         });
+
+        state.setPauseOnBlur(true);
 
         return state;
     }
@@ -133,7 +137,7 @@ const createAudioManager = function createAudioManagerFunc() {
         // props
         isMusicPlaying: false,
         // methods
-        init,
+        __constructor,
         playSfx,
         setScene,
         setPauseOnBlur,
