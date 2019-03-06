@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 import { List } from 'immutable';
 import gameConfig from 'configs/gameConfig';
 import spriteConfig from 'configs/spriteConfig';
@@ -6,9 +5,7 @@ import AudioManager from 'core/createAudioManager';
 import createPlayer from 'entities/createPlayer';
 import UI from 'scenes/UI';
 import audioConfig from 'configs/audioConfig';
-import getFunctionUsage from 'utils/getFunctionUsage';
 import canListen from 'components/events/canListen';
-import pipe from 'utils/pipe';
 import isScene from 'components/isScene';
 import createState from 'utils/createState';
 

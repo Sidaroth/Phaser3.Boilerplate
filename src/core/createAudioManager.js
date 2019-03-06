@@ -1,7 +1,7 @@
 import gameConfig from 'configs/gameConfig';
 import spriteConfig from 'configs/spriteConfig';
 import audioConfig from 'configs/audioConfig';
-import getFunctionUsage from 'utils/getFunctionUsage';
+import createState from 'utils/createState';
 
 const createAudioManager = function createAudioManagerFunc() {
     const state = {};
@@ -149,11 +149,8 @@ const createAudioManager = function createAudioManagerFunc() {
         destroy,
     };
 
-    const states = [{ state, name: 'state' }, { state: localState, name: 'localState' }];
-
-    getFunctionUsage(states, 'AudioManager');
-    return Object.assign(...states.map(s => s.state), {
-        // pipes and overrides
+    return createState('AudioManager', state, {
+        localState,
     });
 };
 

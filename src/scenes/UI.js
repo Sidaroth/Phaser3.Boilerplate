@@ -1,8 +1,8 @@
 import Stats from 'stats-js';
 import * as dat from 'dat.gui';
 import gameConfig from 'configs/gameConfig';
-import getFunctionUsage from 'utils/getFunctionUsage';
 import isScene from 'components/isScene';
+import createState from 'utils/createState';
 
 /**
  * Layer/Scene for UI elements.
@@ -62,12 +62,9 @@ const UI = function UIFunc() {
         destroy,
     };
 
-    const isSceneState = isScene(state, gameConfig.SCENES.UI);
-    const states = [{ state, name: 'state' }, { state: localState, name: 'localState' }, { state: isSceneState, name: 'isScene' }];
-
-    getFunctionUsage(states, 'UIScene');
-    return Object.assign(...states.map(s => s.state), {
-        // pipes and overrides
+    return createState('UIScene', state, {
+        localState,
+        isScene: isScene(state, gameConfig.SCENES.UI),
     });
 };
 
