@@ -19,10 +19,10 @@
         "url": "git+https://github.com/sidaroth/Phaser3.Boilerplate.git"
     },
     "devDependencies": {
-        "@babel/core": "^7.5.5",
+        "@babel/core": "^7.6.2",
         "@babel/plugin-proposal-class-properties": "^7.5.5",
-        "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-        "@babel/preset-env": "^7.5.5",
+        "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+        "@babel/preset-env": "^7.6.2",
         "babel-eslint": "^8.2.6",
         "babel-loader": "^8.0.6",
         "copy-webpack-plugin": "^4.6.0",
@@ -44,17 +44,17 @@
         "node-sass": "^4.12.0",
         "raw-loader": "^0.5.1",
         "resolve-url-loader": "^2.3.2",
-        "rimraf": "^2.6.3",
-        "sass-loader": "^7.1.0",
+        "rimraf": "^2.7.1",
+        "sass-loader": "^7.3.1",
         "style-loader": "^0.21.0",
-        "webpack": "^4.39.1",
-        "webpack-cli": "^3.3.6",
-        "webpack-dev-server": "^3.7.2"
+        "webpack": "^4.41.0",
+        "webpack-cli": "^3.3.9",
+        "webpack-dev-server": "^3.8.1"
     },
     "dependencies": {
         "dat.gui": "^0.7.6",
         "immutable": "^3.8.2",
-        "phaser": "^3.18.1",
+        "phaser": "^3.19.0",
         "stats-js": "^1.0.1"
     }
 }
