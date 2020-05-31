@@ -72,6 +72,7 @@ const createAudioManager = function createAudioManagerFunc(parentScene) {
 
     function playSfx(key) {
         if (soundEffects.has(key)) {
+            console.log('playing', key);
             soundEffects.get(key).play();
         }
     }

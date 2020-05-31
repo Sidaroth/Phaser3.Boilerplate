@@ -15,10 +15,11 @@ const phaserConfig = {
     height: gameConfig.GAME.VIEWHEIGHT,
     backgroundColor: '#555555',
     parent: 'game',
-    scene: [BootScene().getScene(), LoadScene().getScene(), Game().getScene()],
+    scene: [BootScene().scene, LoadScene().scene, Game().scene],
 };
 
-store.messageBus = createMessageBus();
 const game = new Phaser.Game(phaserConfig);
+store.messageBus = createMessageBus();
+store.game = game;
 
 window.addEventListener('resize', resizeCanvas);

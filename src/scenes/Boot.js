@@ -2,6 +2,7 @@ import gameConfig from 'configs/gameConfig';
 import resizeCanvas from 'utils/resizeCanvas';
 import isScene from 'components/isScene';
 import createState from 'utils/createState';
+import hasCamera from 'components/hasCamera';
 
 const BootScene = function BootSceneFunc() {
     const state = {};
@@ -9,8 +10,8 @@ const BootScene = function BootSceneFunc() {
     // hook into phasers scene lifecycle.
     function create() {
         resizeCanvas();
-        state.getScene().cameras.main.setSize(gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
-        state.getScene().scene.start(gameConfig.SCENES.LOAD);
+        state.setSize(gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
+        state.sceneManager.start(gameConfig.SCENES.LOAD);
     }
 
     const localState = {
@@ -21,6 +22,7 @@ const BootScene = function BootSceneFunc() {
     return createState('Boot', state, {
         localState,
         isScene: isScene(state, gameConfig.SCENES.BOOT),
+        hasCamera: hasCamera(state),
     });
 };
 

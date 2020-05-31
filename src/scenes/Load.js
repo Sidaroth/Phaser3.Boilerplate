@@ -13,13 +13,13 @@ const LoadScene = function LoadSceneFunc() {
         // load MUSIC
         Object.keys(audioConfig.MUSIC).forEach((objKey) => {
             const AUDIO = audioConfig.MUSIC[objKey];
-            state.getScene().load.audio(AUDIO.KEY, AUDIO.PATH);
+            state.scene.load.audio(AUDIO.KEY, AUDIO.PATH);
         });
 
         // load SFX
         Object.keys(audioConfig.SFX).forEach((objKey) => {
             const SFX = audioConfig.SFX[objKey];
-            state.getScene().load.audio(SFX.KEY, SFX.PATH);
+            state.scene.load.audio(SFX.KEY, SFX.PATH);
         });
     }
 
@@ -30,7 +30,7 @@ const LoadScene = function LoadSceneFunc() {
     function loadImages() {
         Object.keys(spriteConfig).forEach((objKey) => {
             const SPRITE = spriteConfig[objKey];
-            state.getScene().load.image(SPRITE.KEY, SPRITE.PATH);
+            state.scene.load.image(SPRITE.KEY, SPRITE.PATH);
         });
     }
 
@@ -43,13 +43,13 @@ const LoadScene = function LoadSceneFunc() {
 
     // hook into phasers scene lifecycle.
     function preload() {
-        loadingBar = createLoadingBar(state.getScene());
+        loadingBar = createLoadingBar(state.scene);
         loadingBar.setPosition({ x: gameConfig.GAME.VIEWWIDTH / 2, y: gameConfig.GAME.VIEWHEIGHT / 2 });
         loadingBar.setSize({ w: gameConfig.GAME.VIEWWIDTH * 0.4, h: gameConfig.GAME.VIEWHEIGHT * 0.025 });
 
-        state.getScene().load.on('complete', () => {
-            state.getScene().scene.start(gameConfig.SCENES.GAME);
-            state.getScene().destroy();
+        state.scene.load.on('complete', () => {
+            state.sceneManager.start(gameConfig.SCENES.GAME);
+            state.scene.destroy();
         });
 
         loadAssets();

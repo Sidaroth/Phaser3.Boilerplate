@@ -24,10 +24,10 @@ const UI = function UIFunc() {
         document.body.appendChild(stats.domElement);
 
         // TODO cleanup listeners
-        state.getScene().events.on('preupdate', () => {
+        state.scene.events.on('preupdate', () => {
             stats.begin();
         });
-        state.getScene().events.on('postupdate', () => {
+        state.scene.events.on('postupdate', () => {
             stats.end();
         });
     }

@@ -1,13 +1,13 @@
-import { List } from 'immutable';
 import gameConfig from 'configs/gameConfig';
 import spriteConfig from 'configs/spriteConfig';
 import AudioManager from 'core/createAudioManager';
 import createPlayer from 'entities/createPlayer';
 import UI from 'scenes/UI';
-import audioConfig from 'configs/audioConfig';
 import canListen from 'components/events/canListen';
 import isScene from 'components/isScene';
 import createState from 'utils/createState';
+import store from 'root/store';
+import hasCamera from 'components/hasCamera';
 
 /**
  * Responsible for delegating the various levels, holding the various core systems and such.
@@ -15,54 +15,38 @@ import createState from 'utils/createState';
 const Game = function GameFunc() {
     const state = {};
     let audioManager;
-    let entities = List([]);
-    let UIScene;
+    let UIContainer;
     let background;
 
-    function createCoin() {
-        audioManager.playSfx(audioConfig.SFX.COIN.KEY);
-    }
-
     function cameraSetup() {
-        state.getScene().cameras.main.setViewport(0, 0, gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
-        state.getScene().cameras.main.setZoom(0.8);
+        state.setViewport(0, 0, gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
+        state.setZoom(0.8);
     }
 
-    function addEntities() {
-        const numberOfEntities = 3;
-
-        for (let i = 0; i < numberOfEntities; i += 1) {
-            entities = entities.push(createPlayer());
-        }
-
-        // Log a player entity example, same as in readme.md
-        console.log(entities.get(0));
-        entities.forEach((e) => {
-            e.printInfo();
-        });
-    }
 
     function init() {
         // After assets are loaded.
-        UIScene = UI();
-        state.getScene().scene.add(gameConfig.SCENES.UI, UIScene.getScene(), true);
-        audioManager = AudioManager(UIScene.getScene());
+        UIContainer = UI();
+        state.addScene(gameConfig.SCENES.UI, UIContainer.scene, true);
+        audioManager = AudioManager(UIContainer.scene);
+        store.audioManager = audioManager;
     }
 
     function create() {
-        background = state.getScene().add.image(0, 0, spriteConfig.BACKGROUND.KEY);
+        background = state.addImage(0, 0, spriteConfig.BACKGROUND.KEY);
         background.setOrigin(0, 0);
         audioManager.playMusic();
-        createCoin();
-        addEntities();
         cameraSetup();
+
+        const player = createPlayer();
+        console.log(player);
     }
 
     function update(time, delta) {}
 
     function destroy() {
-        if (background) state.getScene().background.destroy();
-        if (UI) UI.destroy();
+        if (background) state.removeChild(spriteConfig.BACKGROUND.KEY);
+        if (UIContainer) UIContainer.destroy();
     }
 
     const localState = {
@@ -78,6 +62,7 @@ const Game = function GameFunc() {
         localState,
         canListen: canListen(state),
         isScene: isScene(state, gameConfig.SCENES.GAME),
+        hasCamera: hasCamera(state),
     });
 };
 
