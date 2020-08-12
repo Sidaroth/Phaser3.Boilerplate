@@ -95,18 +95,20 @@ module.exports = {
             },
             mobile: true,
         }),
-        new CopyWebpackPlugin([
-            {
-                from: path.join(__dirname, '../assets/images/**/*'),
-                to: path.join(PATHS.dist, 'images/'),
-                flatten: false,
-            },
-            {
-                from: path.join(__dirname, '../assets/audio/**/*'),
-                to: path.join(PATHS.dist, 'audio/'),
-                flatten: false,
-            },
-        ]),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.join(__dirname, '../assets/images/'),
+                    to: path.join(PATHS.dist, 'assets/images/'),
+                    flatten: false,
+                },
+                {
+                    from: path.join(__dirname, '../assets/audio/'),
+                    to: path.join(PATHS.dist, 'assets/audio/'),
+                    flatten: false,
+                },
+            ],
+        }),
     ],
     node: {
         fs: 'empty',
