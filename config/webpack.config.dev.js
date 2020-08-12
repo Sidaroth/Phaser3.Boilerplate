@@ -25,7 +25,7 @@ module.exports = merge(baseConfig, {
             errors: true,
         },
         port: PORT,
-        publicPath: 'http://localhost:3000/',
+        publicPath: `http://localhost:${PORT}/`,
         hot: true,
     },
 });
