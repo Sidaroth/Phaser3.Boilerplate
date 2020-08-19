@@ -54,6 +54,6 @@
         "immutable": "^3.8.2",
         "phaser": "^3.24.1",
         "stats-js": "^1.0.1",
-        "webpack-merge": "^5.1.1"
+        "webpack-merge": "^5.1.2"
     }
 }
