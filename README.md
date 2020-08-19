@@ -17,6 +17,10 @@ Documentation for Phaser: https://photonstorm.github.io/phaser3-docs/index.html
 4. npm install
 5. npm start
 
+OR
+
+1. Click the "Use this Template" button to automatically create a new repository based on this one.
+
 ### Concerning object composing
 This project uses a classless, object composing focused architecture, which may be unfamiliar to you. There are several reasons to do this, but the main reason is how adaptive this way of programming is. The basic idea behind it is to compose in the various functionality you want to use in your resulting object. You may in some cases, even think of these objects as pseudo classes. An example from this boilerplate project is the (simplified!) player object. It consists of a few different states, that make up all the functionality the player has. 
 ```javascript
