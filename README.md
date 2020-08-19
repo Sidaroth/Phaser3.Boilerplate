@@ -21,6 +21,14 @@ OR
 
 1. Click the "Use this Template" button to automatically create a new repository based on this one.
 
+## Games Created with this Boilerplate Project.
+* https://github.com/Sidaroth/Asteroid.Capitalist (Space Twin-Stick Shooter, Open Jam 2019)
+* https://github.com/Garlov/AutoRhythm (Rhythm Game with Auto Generated Notes, Open Jam 2018)
+* https://github.com/Garlov/WeeklyGameJam.HatchAnEgg (First edition of the boilerplate, Weekly Game Jam #45)
+
+
+*If you want your game featured here, feel free to contact us or create a pull request with the edited readme.* 
+
 ### Concerning object composing
 This project uses a classless, object composing focused architecture, which may be unfamiliar to you. There are several reasons to do this, but the main reason is how adaptive this way of programming is. The basic idea behind it is to compose in the various functionality you want to use in your resulting object. You may in some cases, even think of these objects as pseudo classes. An example from this boilerplate project is the (simplified!) player object. It consists of a few different states, that make up all the functionality the player has. 
 ```javascript
