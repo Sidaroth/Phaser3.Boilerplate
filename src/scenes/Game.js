@@ -1,4 +1,4 @@
-import gameConfig from 'configs/gameConfig';
+import {GAME, SCENES} from 'configs/gameConfig';
 import spriteConfig from 'configs/spriteConfig';
 import AudioManager from 'core/createAudioManager';
 import createPlayer from 'entities/createPlayer';
@@ -19,7 +19,7 @@ const Game = function GameFunc() {
     let background;
 
     function cameraSetup() {
-        state.setViewport(0, 0, gameConfig.GAME.VIEWWIDTH, gameConfig.GAME.VIEWHEIGHT);
+        state.setViewport(0, 0, GAME.VIEWWIDTH, GAME.VIEWHEIGHT);
         state.setZoom(0.8);
     }
 
@@ -27,7 +27,7 @@ const Game = function GameFunc() {
     function init() {
         // After assets are loaded.
         UIContainer = UI();
-        state.addScene(gameConfig.SCENES.UI, UIContainer.scene, true);
+        state.addScene(SCENES.UI, UIContainer.scene, true);
         audioManager = AudioManager(UIContainer.scene);
         store.audioManager = audioManager;
     }
@@ -61,7 +61,7 @@ const Game = function GameFunc() {
     return createState('Game', state, {
         localState,
         canListen: canListen(state),
-        isScene: isScene(state, gameConfig.SCENES.GAME),
+        isScene: isScene(state, SCENES.GAME),
         hasCamera: hasCamera(state),
     });
 };

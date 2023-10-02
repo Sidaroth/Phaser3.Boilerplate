@@ -1,0 +1,66 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "target": "esnext",
+        "allowJs": true,
+        "declaration": true,
+        "useDefineForClassFields": true,
+        "outDir": "types",
+        "declarationMap": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "strict": true,
+        "jsx": "preserve",
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "emitDeclarationOnly": true,
+        "experimentalDecorators": true,
+        "paths": {
+            "configs*": [
+                "src/configs*"
+            ],
+            "core*": [
+                "src/core*"
+            ],
+            "styles*": [
+                "styles*"
+            ],
+            "assets*": [
+                "assets*"
+            ],
+            "scenes*": [
+                "src/scenes*"
+            ],
+            "entities*": [
+                "src/entities*"
+            ],
+            "components*": [
+                "src/components*"
+            ],
+            "utils*": [
+                "src/utils*"
+            ],
+            "root*": [
+                "src*"
+            ],
+        },
+        "lib": [
+            "esnext",
+            "dom"
+        ]
+    },
+    "include": [
+        "src/**/*",
+        // "test/vitest/**/*",
+    ],
+    "exclude": [
+        "types/**/*",
+        "node_modules/**/*"
+    ],
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
+        }
+    ]
+}

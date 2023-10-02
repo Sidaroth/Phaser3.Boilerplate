@@ -1,9 +1,15 @@
 import getFunctionUsage from './getFunctionUsage';
 import pipe from './pipe';
 
-const createState = function createStateFunc(className = 'MyClass', mainState = {}, states = {}, overrides = {}) {
-    const stateList = [];
-    const pipes = {};
+interface State {
+    state: any;
+    name: string;
+}
+
+function createState<T>(className = 'MyClass', mainState: any = {}, states: { [key: string]: any } = {}, overrides = {}): T {
+    const stateList: Array<State> = [];
+    const pipes: { [key: string]: Array<(a: any) => any> } = {};
+    const finishedPipes: { [key: string]: (a: any) => any } = {};
 
     // Loop over all states (components).
     Object.keys(states).forEach((stateKey) => {
@@ -28,9 +34,7 @@ const createState = function createStateFunc(className = 'MyClass', mainState = 
     // Automatically set up a pipe() structure for these.
     Object.keys(pipes).forEach((propKey) => {
         if (pipes[propKey].length > 1) {
-            pipes[propKey] = pipe(...pipes[propKey]);
-        } else {
-            delete pipes[propKey];
+            finishedPipes[propKey] = pipe(...pipes[propKey]);
         }
     });
 
@@ -40,7 +44,7 @@ const createState = function createStateFunc(className = 'MyClass', mainState = 
     // This allows a created class/state to have a constructor that is ran at create time.
     const init = pipe(...stateList.map(s => s.state.__constructor).filter(c => c));
 
-    Object.assign(mainState, ...stateList.map(s => s.state), pipes, overrides);
+    Object.assign(mainState, ...stateList.map(s => s.state), finishedPipes, overrides);
 
     // Cleans up any constructor still on the mainstate.
     if (mainState.__constructor) {

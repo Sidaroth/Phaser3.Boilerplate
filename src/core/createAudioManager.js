@@ -1,4 +1,4 @@
-import gameConfig from 'configs/gameConfig';
+import {GAME,UI_DEFAULT } from 'configs/gameConfig';
 import spriteConfig from 'configs/spriteConfig';
 import audioConfig from 'configs/audioConfig';
 import createState from 'utils/createState';
@@ -12,7 +12,7 @@ const createAudioManager = function createAudioManagerFunc(parentScene) {
     let muteIcon;
     let currentSong;
 
-    const muteIdentifier = `${gameConfig.GAME.TITLE.replace(/ /g, '_')}_isMuted`; // replace all spaces with _ for safety
+    const muteIdentifier = `${GAME.TITLE.replace(/ /g, '_')}_isMuted`; // replace all spaces with _ for safety
     const soundEffects = new Map();
     const music = new Map();
     const currentVolume = 0.7;
@@ -31,7 +31,7 @@ const createAudioManager = function createAudioManagerFunc(parentScene) {
     function _setupMute() {
         muteIcon = scene.add.image(1850, 1040, spriteConfig.SPEAKER.KEY);
         muteIcon.setScrollFactor(0);
-        muteIcon.tint = gameConfig.UI_DEFAULT.tint;
+        muteIcon.tint = UI_DEFAULT.tint;
         muteIcon.depth = 3;
         muteIcon.setInteractive();
         muteIcon.on('pointerup', state.toggleMute, state);

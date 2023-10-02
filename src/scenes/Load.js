@@ -1,4 +1,4 @@
-import gameConfig from 'configs/gameConfig';
+import {GAME, SCENES} from 'configs/gameConfig';
 import createLoadingBar from 'core/createLoadingBar';
 import spriteConfig from 'configs/spriteConfig';
 import audioConfig from 'configs/audioConfig';
@@ -44,11 +44,11 @@ const LoadScene = function LoadSceneFunc() {
     // hook into phasers scene lifecycle.
     function preload() {
         loadingBar = createLoadingBar(state.scene);
-        loadingBar.setPosition({ x: gameConfig.GAME.VIEWWIDTH / 2, y: gameConfig.GAME.VIEWHEIGHT / 2 });
-        loadingBar.setSize({ w: gameConfig.GAME.VIEWWIDTH * 0.4, h: gameConfig.GAME.VIEWHEIGHT * 0.025 });
+        loadingBar.setPosition({ x: GAME.VIEWWIDTH / 2, y: GAME.VIEWHEIGHT / 2 });
+        loadingBar.setSize({ w: GAME.VIEWWIDTH * 0.4, h: GAME.VIEWHEIGHT * 0.025 });
 
         state.scene.load.on('complete', () => {
-            state.sceneManager.start(gameConfig.SCENES.GAME);
+            state.sceneManager.start(SCENES.GAME);
             state.scene.destroy();
         });
 
@@ -68,7 +68,7 @@ const LoadScene = function LoadSceneFunc() {
 
     return createState('LoadState', state, {
         localState,
-        isScene: isScene(state, gameConfig.SCENES.LOAD),
+        isScene: isScene(state, SCENES.LOAD),
     });
 };
 

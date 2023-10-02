@@ -1,11 +1,11 @@
-import gameConfig from 'configs/gameConfig';
+import {GAME} from 'configs/gameConfig';
 
 const resizeCanvas = function resizeCanvasFunc() {
     const canvas = document.querySelector('#game>canvas');
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
     const windowRatio = windowWidth / windowHeight;
-    const gameRatio = gameConfig.GAME.VIEWWIDTH / gameConfig.GAME.VIEWHEIGHT;
+    const gameRatio = GAME.VIEWWIDTH / GAME.VIEWHEIGHT;
     if (windowRatio < gameRatio) {
         canvas.style.width = `${windowWidth}px`;
         canvas.style.height = `${windowWidth / gameRatio}px`;
