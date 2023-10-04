@@ -1,5 +1,5 @@
-import { Emit } from 'components/events/canEmit';
-import { EVENTS, EventData } from 'configs/eventConfig';
+import { EmitState } from 'components/events/canEmit';
+import { EventData } from 'configs/eventConfig';
 import getUUID from 'utils/getUUID';
 
 export interface Listener<T extends keyof EventData> {
@@ -11,7 +11,7 @@ export interface Listener<T extends keyof EventData> {
     drop: () => void;
 }
 
-function createListener<T extends keyof EventData>(event: T, fn: (event: EventData[T]) => void, once: boolean, emitState: Emit): Listener<T> {
+function createListener<T extends keyof EventData>(event: T, fn: (event: EventData[T]) => void, once: boolean, emitState: EmitState): Listener<T> {
     const state = {} as Listener<T>;
 
     function drop() {
