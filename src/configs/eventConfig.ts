@@ -4,6 +4,10 @@ export const EVENTS = {
     },
     OTHER: {
         TEST: 'other_event'
+    },
+    KEYBOARD: {
+        KEYDOWN: 'keydown',
+        KEYUP: 'keyup',
     }
 }
 
@@ -15,7 +19,21 @@ export interface OtherEvent {
     test: string;
 }
 
+export interface KeyboardKeyUpEvent {
+    key: string;
+    repeat: boolean;
+    keyCode: number;
+}
+
+export interface KeyboardKeyDownEvent {
+    key: string;
+    repeat: boolean;
+    keyCode: number;
+}
+
 export interface EventData {
     'game_started': GameStartedEvent;
     'other_event': OtherEvent;
+    'keydown': KeyboardKeyDownEvent;
+    'keyup': KeyboardKeyUpEvent;
 }

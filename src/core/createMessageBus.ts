@@ -1,8 +1,11 @@
-import canEmit from 'components/events/canEmit';
+import canEmit, { EmitState } from 'components/events/canEmit';
 import createState from 'utils/createState';
 
-const createMessageBus = function createMessageBusFunc() {
-    const state = {};
+export interface MessageBus extends EmitState {
+}
+
+const createMessageBus = function createMessageBusFunc(): MessageBus {
+    const state = {} as MessageBus;
 
     const localState = {
         // props
