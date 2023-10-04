@@ -4,6 +4,7 @@ specifiers:
   '@types/dat.gui': ^0.7.10
   '@types/node': ^20.8.2
   '@types/stats': ^0.16.30
+  '@types/uuid': ^9.0.4
   '@typescript-eslint/eslint-plugin': ^6.7.4
   '@typescript-eslint/parser': ^6.7.4
   dat.gui: ^0.7.9
@@ -23,6 +24,7 @@ specifiers:
   stats.js: ^0.17.0
   tslib: ^2.6.2
   typescript: ^5.2.2
+  uuid: ^9.0.1
   vite: ^4.4.10
   vite-plugin-dts: ^3.6.0
   vite-plugin-eslint: ^1.8.1
@@ -34,10 +36,12 @@ dependencies:
   phaser: 3.60.0
   sass: 1.68.0
   stats.js: 0.17.0
+  uuid: 9.0.1
 
 devDependencies:
   '@types/dat.gui': 0.7.10
   '@types/stats': 0.16.30
+  '@types/uuid': 9.0.4
   '@typescript-eslint/eslint-plugin': 6.7.4_sjhwt3bl5psuxqi3hx6z7r6ola
   '@typescript-eslint/parser': 6.7.4_jk7qbkaijtltyu4ajmze3dfiwa
   esbuild: 0.19.4
@@ -699,6 +703,10 @@ packages:
 
   /@types/stats/0.16.30:
     resolution: {integrity: sha512-ihuaNKhVjTQ8UNLJu7Kx96ywf0bSBday/K//HHvO9LKha07Ezxdm6HkazOKUIdayp0EmGEIPBQSL7eLxm8rX0w==}
+    dev: true
+
+  /@types/uuid/9.0.4:
+    resolution: {integrity: sha512-zAuJWQflfx6dYJM62vna+Sn5aeSWhh3OB+wfUEACNcqUSc0AGc5JKl+ycL1vrH7frGTXhJchYjE1Hak8L819dA==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/6.7.4_sjhwt3bl5psuxqi3hx6z7r6ola:
@@ -2676,6 +2684,11 @@ packages:
     dependencies:
       punycode: 2.3.0
     dev: true
+
+  /uuid/9.0.1:
+    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    hasBin: true
+    dev: false
 
   /validator/13.11.0:
     resolution: {integrity: sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ==}

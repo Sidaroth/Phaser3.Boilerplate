@@ -1,6 +1,6 @@
 import { EmitState } from 'components/events/canEmit';
 import { EventData } from 'configs/eventConfig';
-import getUUID from 'utils/getUUID';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface Listener<T extends keyof EventData> {
     id: any;
@@ -22,7 +22,7 @@ function createListener<T extends keyof EventData>(event: T, fn: (event: EventDa
 
     return Object.assign(state, {
         // props
-        id: getUUID(),
+        id: uuidv4(),
         dropped: false,
         once,
         event,

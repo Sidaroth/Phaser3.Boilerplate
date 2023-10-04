@@ -1,4 +1,4 @@
-import getUUID from 'utils/getUUID';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface GameEntityState {
     id: string;
@@ -16,7 +16,7 @@ const isGameEntity = function isGameEntityFunc(state: GameEntityState): GameEnti
 
     return {
         // props
-        id: getUUID(),
+        id: uuidv4(),
         // methods
         printInfo,
         update,

@@ -28,6 +28,7 @@ declare global {
         mozRequestFullScreen?: () => void;
         webkitRequestFullscreen?: (a?: any) => void;
         msRequestFullscreen?: () => void;
+        style: any;
     }
 }
 

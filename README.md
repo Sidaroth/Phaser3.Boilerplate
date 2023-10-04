@@ -83,7 +83,7 @@ const isGameEntity = function isGameEntityFunc(state) {
     }
 
     return {
-        id: getUUID(),
+        id: uuidv4(),
         printInfo,
     };
 };
