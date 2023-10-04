@@ -1,11 +1,18 @@
 import getUUID from 'utils/getUUID';
 
-const isGameEntity = function isGameEntityFunc(state) {
+export interface GameEntityState {
+    id: string;
+
+    printInfo(): void;
+    update(): void;
+}
+
+const isGameEntity = function isGameEntityFunc(state: GameEntityState): GameEntityState {
     function printInfo() {
         console.log(`id: %c${state.id}`, 'color: yellow');
     }
 
-    function update() {}
+    function update() { }
 
     return {
         // props
