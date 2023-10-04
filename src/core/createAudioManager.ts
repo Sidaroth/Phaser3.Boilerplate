@@ -1,5 +1,5 @@
 import { GAME, UI_DEFAULT } from 'configs/gameConfig';
-import spriteConfig from 'configs/spriteConfig';
+import { SPEAKER, SPEAKER_OFF } from 'configs/spriteConfig';
 import { MUSIC, SFX } from 'configs/audioConfig';
 import createState from 'utils/createState';
 import { ExtendedPhaserScene } from 'components/isScene';
@@ -40,16 +40,16 @@ function createAudioManager(parentScene: ExtendedPhaserScene): AudioManager {
 
     function _updateMute() {
         if (state.isAudioMuted()) {
-            muteIcon.setTexture(spriteConfig.SPEAKER_OFF.KEY);
+            muteIcon.setTexture(SPEAKER_OFF.KEY);
             scene.sound.mute = true;
         } else {
-            muteIcon.setTexture(spriteConfig.SPEAKER.KEY);
+            muteIcon.setTexture(SPEAKER.KEY);
             scene.sound.mute = false;
         }
     }
 
     function _setupMute() {
-        muteIcon = scene.add.image(1850, 1040, spriteConfig.SPEAKER.KEY);
+        muteIcon = scene.add.image(1850, 1040, SPEAKER.KEY);
         muteIcon.setScrollFactor(0);
         muteIcon.tint = UI_DEFAULT.tint;
         muteIcon.depth = 3;

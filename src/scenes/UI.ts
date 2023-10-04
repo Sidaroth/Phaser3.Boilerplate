@@ -1,34 +1,40 @@
-import Stats from 'stats-js';
+import Stats from 'stats.js';
 import * as dat from 'dat.gui';
-import {SCENES} from 'configs/gameConfig';
-import isScene from 'components/isScene';
+import { SCENES } from 'configs/gameConfig';
+import isScene, { Scene } from 'components/isScene';
 import createState from 'utils/createState';
 
 /**
  * Layer/Scene for UI elements.
  */
 
-const UI = function UIFunc() {
-    const state = {};
-    let gui;
-    let stats;
+export interface UIScene extends Scene {
+    guiData: {
+        name: string;
+    };
+}
+
+function UI(): UIScene {
+    const state = {} as UIScene;
+    let gui: dat.GUI | undefined;
+    let stats: Stats | undefined;
 
     function setupPerformanceStats() {
         stats = new Stats();
-        stats.setMode(0);
+        stats.showPanel(0);
 
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.left = '0px';
-        stats.domElement.style.top = '0px';
+        stats.dom.style.position = 'absolute';
+        stats.dom.style.left = '0px';
+        stats.dom.style.top = '0px';
 
-        document.body.appendChild(stats.domElement);
+        document.body.appendChild(stats.dom);
 
         // TODO cleanup listeners
         state.scene.events.on('preupdate', () => {
-            stats.begin();
+            stats?.begin();
         });
         state.scene.events.on('postupdate', () => {
-            stats.end();
+            stats?.end();
         });
     }
 
@@ -51,12 +57,18 @@ const UI = function UIFunc() {
     }
 
     function destroy() {
-        gui.destroy();
-        stats.end();
-        document.body.removeChild(stats);
+        gui?.destroy();
+        stats?.end();
+        if (stats?.dom) {
+            document.body.removeChild(stats.dom);
+        }
     }
 
     const localState = {
+        // props
+        guiData: {
+            name: ''
+        },
         // methods
         create,
         destroy,

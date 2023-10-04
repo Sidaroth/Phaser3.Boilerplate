@@ -1,7 +1,7 @@
 import {GAME, SCENES} from 'configs/gameConfig';
 import createLoadingBar from 'core/createLoadingBar';
-import spriteConfig from 'configs/spriteConfig';
-import audioConfig from 'configs/audioConfig';
+import * as spriteConfig from 'configs/spriteConfig';
+import {MUSIC, SFX} from 'configs/audioConfig';
 import isScene from 'components/isScene';
 import createState from 'utils/createState';
 
@@ -11,15 +11,15 @@ const LoadScene = function LoadSceneFunc() {
 
     function loadAudio() {
         // load MUSIC
-        Object.keys(audioConfig.MUSIC).forEach((objKey) => {
-            const AUDIO = audioConfig.MUSIC[objKey];
-            state.scene.load.audio(AUDIO.KEY, AUDIO.PATH);
+        Object.keys(MUSIC).forEach((objKey) => {
+            const audio = MUSIC[objKey];
+            state.scene.load.audio(audio.KEY, audio.PATH);
         });
 
         // load SFX
-        Object.keys(audioConfig.SFX).forEach((objKey) => {
-            const SFX = audioConfig.SFX[objKey];
-            state.scene.load.audio(SFX.KEY, SFX.PATH);
+        Object.keys(SFX).forEach((objKey) => {
+            const sfx = SFX[objKey];
+            state.scene.load.audio(sfx.KEY, sfx.PATH);
         });
     }
 

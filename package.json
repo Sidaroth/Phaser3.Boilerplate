@@ -20,8 +20,10 @@
         "url": "git+https://github.com/sidaroth/Phaser3.Boilerplate.git"
     },
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^6.7.3",
-        "@typescript-eslint/parser": "^6.7.3",
+        "@types/dat.gui": "^0.7.10",
+        "@types/stats": "^0.16.30",
+        "@typescript-eslint/eslint-plugin": "^6.7.4",
+        "@typescript-eslint/parser": "^6.7.4",
         "esbuild": "^0.19.4",
         "eslint": "^8.50.0",
         "eslint-config-airbnb-base": "^15.0.0",
@@ -34,16 +36,16 @@
         "rollup-plugin-strip-code": "^0.2.7",
         "tslib": "^2.6.2",
         "typescript": "^5.2.2",
-        "vite": "^4.4.9",
+        "vite": "^4.4.10",
         "vite-plugin-dts": "^3.6.0",
         "vite-plugin-eslint": "^1.8.1"
     },
     "dependencies": {
-        "@types/node": "^20.8.0",
+        "@types/node": "^20.8.2",
         "dat.gui": "^0.7.9",
         "immutable": "^4.3.4",
         "phaser": "^3.60.0",
         "sass": "^1.68.0",
-        "stats-js": "^1.0.1"
+        "stats.js": "^0.17.0"
     }
 }

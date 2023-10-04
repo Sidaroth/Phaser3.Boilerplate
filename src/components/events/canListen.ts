@@ -2,14 +2,14 @@ import store from 'root/store';
 import { EmitState } from './canEmit';
 import { EventData } from 'configs/eventConfig';
 import { Listener } from 'core/createListener';
+import { LifeCycle } from 'components/isScene';
 
-export interface ListenState {
+export interface ListenState extends LifeCycle {
     dropListener(listener: Listener<any>): void;
     listenOn<T extends keyof EventData>(emitState: EmitState, event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T>;
     listenOnce<T extends keyof EventData>(emitState: EmitState, event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T>;
     listenGlobal<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T>;
     listenOnceGlobal<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T>;
-    destroy(): void;
 }
 
 const canListen = function canListenFunc(state: ListenState): ListenState {

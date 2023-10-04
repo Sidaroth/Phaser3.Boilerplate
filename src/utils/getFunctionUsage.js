@@ -1,4 +1,4 @@
-import devConfig from 'configs/devConfig';
+import { COMPOSITION_INFO } from 'configs/devConfig';
 
 const alreadyLogged = [];
 
@@ -42,8 +42,7 @@ const getFunctionUsage = function getFunctionUsageFunc(states, source) {
         return;
     }
     alreadyLogged.push(source);
-    if (devConfig && devConfig.COMPOSITION_INFO && devConfig.COMPOSITION_INFO.ENABLE) {
-        const { COMPOSITION_INFO } = devConfig;
+    if (COMPOSITION_INFO && COMPOSITION_INFO.ENABLE) {
         // map all states
         const functionMap = new Map();
         states.forEach(s => {

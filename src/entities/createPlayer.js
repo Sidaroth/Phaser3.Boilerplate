@@ -3,14 +3,14 @@ import canEmit from 'components/events/canEmit';
 import hasPosition from 'components/hasPosition';
 import createState from 'utils/createState';
 import hasAudio from 'components/hasAudio';
-import audioConfig from 'configs/audioConfig';
+import { SFX } from 'configs/audioConfig';
 
 const createPlayer = function createPlayerFunc() {
     // variables and functions here are private unless listed below in localState.
     const state = {};
 
     function __constructor() {
-        state.playSfx(audioConfig.SFX.COIN.KEY);
+        state.playSfx(SFX.COIN.KEY);
     }
 
     function printInfo() {
