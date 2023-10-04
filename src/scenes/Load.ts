@@ -1,13 +1,15 @@
-import {GAME, SCENES} from 'configs/gameConfig';
-import createLoadingBar from 'core/createLoadingBar';
-import * as spriteConfig from 'configs/spriteConfig';
-import {MUSIC, SFX} from 'configs/audioConfig';
-import isScene from 'components/isScene';
+import { GAME, SCENES } from 'configs/gameConfig';
+import createLoadingBar, { LoadingBar } from 'core/createLoadingBar';
+import { MUSIC, SFX } from 'configs/audioConfig';
+import isScene, { Scene } from 'components/isScene';
 import createState from 'utils/createState';
+import { BACKGROUND, SPEAKER, SPEAKER_OFF } from 'configs/spriteConfig';
+
+export interface LoadScene extends Scene { }
 
 const LoadScene = function LoadSceneFunc() {
-    const state = {};
-    let loadingBar;
+    const state = {} as LoadScene;
+    let loadingBar: LoadingBar | undefined;
 
     function loadAudio() {
         // load MUSIC
@@ -23,15 +25,14 @@ const LoadScene = function LoadSceneFunc() {
         });
     }
 
-    function loadSpritesheets() {}
+    function loadSpritesheets() { }
 
-    function loadMaps() {}
+    function loadMaps() { }
 
     function loadImages() {
-        Object.keys(spriteConfig).forEach((objKey) => {
-            const SPRITE = spriteConfig[objKey];
-            state.scene.load.image(SPRITE.KEY, SPRITE.PATH);
-        });
+        state.scene.load.image(BACKGROUND.KEY, BACKGROUND.PATH);
+        state.scene.load.image(SPEAKER.KEY, SPEAKER.PATH);
+        state.scene.load.image(SPEAKER_OFF.KEY, SPEAKER_OFF.PATH);
     }
 
     function loadAssets() {
@@ -45,18 +46,20 @@ const LoadScene = function LoadSceneFunc() {
     function preload() {
         loadingBar = createLoadingBar(state.scene);
         loadingBar.setPosition({ x: GAME.VIEWWIDTH / 2, y: GAME.VIEWHEIGHT / 2 });
-        loadingBar.setSize({ w: GAME.VIEWWIDTH * 0.4, h: GAME.VIEWHEIGHT * 0.025 });
+        loadingBar.setSize({ width: GAME.VIEWWIDTH * 0.4, height: GAME.VIEWHEIGHT * 0.025 });
 
         state.scene.load.on('complete', () => {
-            state.sceneManager.start(SCENES.GAME);
-            state.scene.destroy();
+            state.sceneManager?.start(SCENES.GAME);
+            if (state.scene && state.scene.destroy) {
+                state.scene.destroy();
+            }
         });
 
         loadAssets();
     }
 
     function destroy() {
-        if (loadingBar) loadingBar.destroy();
+        if (loadingBar && loadingBar.destroy) loadingBar.destroy();
     }
 
     const localState = {
