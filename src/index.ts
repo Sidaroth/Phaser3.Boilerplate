@@ -8,6 +8,7 @@ import Game from 'scenes/Game';
 import resizeCanvas from 'utils/resizeCanvas';
 import store from './store';
 import createMessageBus from 'core/createMessageBus';
+import sayHello from 'utils/sayHello';
 
 declare global {
     interface Window {
@@ -29,8 +30,14 @@ declare global {
         webkitRequestFullscreen?: () => void;
         msRequestFullscreen?: () => void;
     }
+    
+    export const GAME_BRANCH: string;
+    export const GAME_VERSION: string;
+    export const GAME_TIMESTAMP: string;
+    export const IS_DEV: boolean;
 }
 
+sayHello();
 const phaserConfig = {
     type: Phaser.WEBGL,
     width: GAME.VIEWWIDTH,
