@@ -18,7 +18,7 @@ function canEmit(state: EmitState) {
     const listeners: Array<Listener<any>> = [];
 
     function emitGlobal<T extends keyof EventData>(event: T, data: EventData[T]) {
-        store.messageBus.emit(event, data);
+        store.messageBus?.emit(event, data);
     }
 
     function emit<T extends keyof EventData>(event: T, data: EventData[T]) {
@@ -72,6 +72,6 @@ function canEmit(state: EmitState) {
         destroy,
     };
     return returnState;
-};
+}
 
 export default canEmit;

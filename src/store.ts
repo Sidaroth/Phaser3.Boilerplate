@@ -1,7 +1,8 @@
 import { AudioManager } from "core/createAudioManager";
+import { MessageBus } from "core/createMessageBus";
 
 export interface Store {
-    messageBus?: any;
+    messageBus?: MessageBus;
     game?: Phaser.Game;
     audioManager?: AudioManager;
 }

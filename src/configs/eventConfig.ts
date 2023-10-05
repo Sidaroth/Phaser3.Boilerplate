@@ -8,6 +8,9 @@ export const EVENTS = {
     KEYBOARD: {
         KEYDOWN: 'keydown',
         KEYUP: 'keyup',
+    },
+    BUTTON: {
+        CLICK: 'button_click'
     }
 }
 
@@ -31,9 +34,14 @@ export interface KeyboardKeyDownEvent {
     keyCode: number;
 }
 
+export interface ButtonClickEvent {
+    buttonName: string;
+}
+
 export interface EventData {
     'game_started': GameStartedEvent;
     'other_event': OtherEvent;
     'keydown': KeyboardKeyDownEvent;
     'keyup': KeyboardKeyUpEvent;
+    'button_click': ButtonClickEvent;
 }

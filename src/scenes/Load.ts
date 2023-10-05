@@ -1,14 +1,14 @@
 import { GAME, SCENES } from 'configs/gameConfig';
 import createLoadingBar, { LoadingBar } from 'core/createLoadingBar';
 import { MUSIC, SFX } from 'configs/audioConfig';
-import isScene, { Scene } from 'components/isScene';
+import isScene, { SceneState } from 'components/isScene';
 import createState from 'utils/createState';
 import { BACKGROUND, SPEAKER, SPEAKER_OFF } from 'configs/spriteConfig';
 
-export interface LoadScene extends Scene { }
+export interface LoadSceneState extends SceneState { }
 
-const LoadScene = function LoadSceneFunc() {
-    const state = {} as LoadScene;
+function LoadScene(): LoadSceneState {
+    const state = {} as LoadSceneState;
     let loadingBar: LoadingBar | undefined;
 
     function loadAudio() {
@@ -73,6 +73,6 @@ const LoadScene = function LoadSceneFunc() {
         localState,
         isScene: isScene(state, SCENES.LOAD),
     });
-};
+}
 
 export default LoadScene;

@@ -6,12 +6,13 @@ import { LifeCycle } from 'components/isScene';
 
 export interface ListenState extends LifeCycle {
     dropListener(listener: Listener<any>): void;
-    listenOn<T extends keyof EventData>(emitState: EmitState, event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T>;
-    listenOnce<T extends keyof EventData>(emitState: EmitState, event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T>;
-    listenGlobal<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T>;
-    listenOnceGlobal<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T>;
+    listenOn<T extends keyof EventData>(emitState: EmitState, event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T> | undefined;
+    listenOnce<T extends keyof EventData>(emitState: EmitState, event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T> | undefined;
+    listenGlobal<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T> | undefined;
+    listenOnceGlobal<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T> | undefined;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const canListen = function canListenFunc(state: ListenState): ListenState {
     const listeners: Array<Listener<any>> = [];
 
@@ -27,15 +28,19 @@ const canListen = function canListenFunc(state: ListenState): ListenState {
         return listener;
     }
 
-    function listenGlobal<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T> {
-        const listener = store.messageBus.on(event, fn, context);
-        listeners.push(listener);
+    function listenGlobal<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T> | undefined{
+        const listener = store.messageBus?.on(event, fn, context);
+        if(listener) {
+            listeners.push(listener);
+        }
         return listener;
     }
 
-    function listenOnceGlobal<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T> {
-        const listener = store.messageBus.once(event, fn, context);
-        listeners.push(listener);
+    function listenOnceGlobal<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T> | undefined {
+        const listener = store.messageBus?.once(event, fn, context);
+        if(listener) {
+            listeners.push(listener);
+        }
         return listener;
     }
 

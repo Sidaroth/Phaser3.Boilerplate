@@ -26,9 +26,8 @@ declare global {
 
     interface Element {
         mozRequestFullScreen?: () => void;
-        webkitRequestFullscreen?: (a?: any) => void;
+        webkitRequestFullscreen?: () => void;
         msRequestFullscreen?: () => void;
-        style: any;
     }
 }
 

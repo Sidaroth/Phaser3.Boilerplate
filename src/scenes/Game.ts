@@ -4,16 +4,16 @@ import createAudioManager, { AudioManager } from 'core/createAudioManager';
 import createPlayer from 'entities/createPlayer';
 import UI, { UIScene } from 'scenes/UI';
 import canListen, { ListenState } from 'components/events/canListen';
-import isScene, { Scene } from 'components/isScene';
+import isScene, { SceneState } from 'components/isScene';
 import createState from 'utils/createState';
 import store from 'root/store';
 import hasCamera, { Camera } from 'components/hasCamera';
 
-export interface GameScene extends Scene, Camera, ListenState { }
+export interface GameScene extends SceneState, Camera, ListenState { }
 /**
  * Responsible for delegating the various levels, holding the various core systems and such.
  */
-const Game = function GameFunc(): GameScene {
+function Game(): GameScene {
     const state = {} as GameScene;
     let audioManager: AudioManager | undefined;
     let UIContainer: UIScene | undefined;
@@ -65,6 +65,6 @@ const Game = function GameFunc(): GameScene {
         isScene: isScene(state, SCENES.GAME),
         hasCamera: hasCamera(state),
     });
-};
+}
 
 export default Game;

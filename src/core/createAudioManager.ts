@@ -186,7 +186,7 @@ function createAudioManager(parentScene: ExtendedPhaserScene): AudioManager {
     return createState('AudioManager', state, {
         localState,
     });
-};
+}
 
 /**
  * Audio manager instance, there should only be one. Implementation may change.

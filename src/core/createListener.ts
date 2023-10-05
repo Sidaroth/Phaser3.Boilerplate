@@ -33,6 +33,6 @@ function createListener<T extends keyof EventData>(event: T, fn: (event: EventDa
         // methods
         drop,
     });
-};
+}
 
 export default createListener;

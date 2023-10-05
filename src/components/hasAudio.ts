@@ -8,7 +8,8 @@ export interface Audio {
     playMusic(key: string): void;
 }
 
-const hasAudio = function hasAudioFunc(state: AudioManager) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function hasAudio(state: Audio): Audio {
     let audioMan: AudioManager | undefined = store.audioManager;
 
     function getAudioManager(): AudioManager | undefined {
@@ -37,6 +38,6 @@ const hasAudio = function hasAudioFunc(state: AudioManager) {
         playSfx,
         playMusic,
     };
-};
+}
 
 export default hasAudio;

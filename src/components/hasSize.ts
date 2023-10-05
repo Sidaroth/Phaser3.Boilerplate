@@ -61,6 +61,6 @@ function hasSize(state: SizeState): SizeState {
         getWidth,
         getHeight,
     };
-};
+}
 
 export default hasSize;

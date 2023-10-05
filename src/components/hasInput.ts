@@ -1,7 +1,7 @@
 import { SCENES } from 'configs/gameConfig';
-import { Scene } from './isScene';
+import { SceneState } from './isScene';
 
-export interface Input extends Scene {
+export interface Input extends SceneState {
 }
 
 function hasInput(state: Input) {
@@ -12,6 +12,6 @@ function hasInput(state: Input) {
     return {
         getKeyboard,
     };
-};
+}
 
 export default hasInput;

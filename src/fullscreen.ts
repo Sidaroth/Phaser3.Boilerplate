@@ -20,7 +20,7 @@ if (toggle) {
                 } else if (element.mozRequestFullScreen) {
                     element.mozRequestFullScreen();
                 } else if (element.webkitRequestFullscreen) {
-                    element.webkitRequestFullscreen((Element as any).ALLOW_KEYBOARD_INPUT);
+                    element.webkitRequestFullscreen();
                 } else if (element.msRequestFullscreen) {
                     element.msRequestFullscreen();
                 }

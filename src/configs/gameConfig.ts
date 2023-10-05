@@ -1,7 +1,7 @@
-export const GAME = {
-    VIEWHEIGHT: 1080,
-    VIEWWIDTH: 1920,
-    TITLE: 'Replace Me',
+export enum GAME {
+    VIEWHEIGHT = 1080,
+    VIEWWIDTH = 1920,
+    TITLE = 'Replace Me',
 }
 export enum SCENES {
     BOOT = 'game_boot',

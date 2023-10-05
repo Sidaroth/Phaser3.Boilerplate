@@ -60,6 +60,6 @@ function hasPosition(state: PositionState): PositionState {
         getX,
         getY,
     };
-};
+}
 
 export default hasPosition;

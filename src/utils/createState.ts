@@ -1,15 +1,15 @@
 import getFunctionUsage from './getFunctionUsage';
 import pipe from './pipe';
 
-interface State {
+export interface State {
     state: any;
     name: string;
 }
 
-function createState<T>(className = 'MyClass', mainState: any = {}, states: { [key: string]: any } = {}, overrides = {}): T {
+function createState<T>(className = 'MyClass', mainState: T &  { __constructor?: unknown}, states: { [key: string]: any } = {}, overrides = {}): T {
     const stateList: Array<State> = [];
-    const pipes: { [key: string]: Array<(a: any) => any> } = {};
-    const finishedPipes: { [key: string]: (a: any) => any } = {};
+    const pipes: { [key: string]: Array<(a: unknown) => unknown> } = {};
+    const finishedPipes: { [key: string]: (a: unknown) => unknown } = {};
 
     // Loop over all states (components).
     Object.keys(states).forEach((stateKey) => {
@@ -19,15 +19,15 @@ function createState<T>(className = 'MyClass', mainState: any = {}, states: { [k
             name: stateKey,
         });
 
-        // Loop over all properties on the state object. If functions, store them away for now.
-        Object.keys(state).forEach((propKey) => {
+        for(const propKey in state) {
             if (typeof state[propKey] === 'function') {
                 if (!pipes[propKey]) {
                     pipes[propKey] = [];
                 }
-                pipes[propKey].push(state[propKey]);
+                pipes[propKey].push(state[propKey] as (a: unknown) => unknown);
             }
-        });
+        }
+        // Loop over all properties on the state object. If functions, store them away for now.
     });
 
     // Loop over all functions stored in pipes, check for multiple usages of the same name.
@@ -42,7 +42,7 @@ function createState<T>(className = 'MyClass', mainState: any = {}, states: { [k
 
     // Creates a piped init/constructor that runs each __constructor() function in the different states.
     // This allows a created class/state to have a constructor that is ran at create time.
-    const init = pipe(...stateList.map(s => s.state.__constructor).filter(c => c));
+    const init = pipe(...stateList.map(s => (s.state.__constructor as (a: unknown) => unknown)).filter(c => c));
 
     Object.assign(mainState, ...stateList.map(s => s.state), finishedPipes, overrides);
 
@@ -52,9 +52,9 @@ function createState<T>(className = 'MyClass', mainState: any = {}, states: { [k
     }
 
     // actually calls the piped init constructor from above.
-    init();
+    init(undefined);
 
-    return mainState;
-};
+    return mainState as T;
+}
 
 export default createState;

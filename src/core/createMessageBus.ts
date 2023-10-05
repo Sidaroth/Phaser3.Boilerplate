@@ -4,7 +4,7 @@ import createState from 'utils/createState';
 export interface MessageBus extends EmitState {
 }
 
-const createMessageBus = function createMessageBusFunc(): MessageBus {
+function createMessageBus(): MessageBus {
     const state = {} as MessageBus;
 
     const localState = {
@@ -16,6 +16,6 @@ const createMessageBus = function createMessageBusFunc(): MessageBus {
         localState,
         canEmit: canEmit(state),
     });
-};
+}
 
 export default createMessageBus;

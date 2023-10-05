@@ -1,14 +1,14 @@
 import Stats from 'stats.js';
 import * as dat from 'dat.gui';
 import { SCENES } from 'configs/gameConfig';
-import isScene, { Scene } from 'components/isScene';
+import isScene, { SceneState } from 'components/isScene';
 import createState from 'utils/createState';
 
 /**
  * Layer/Scene for UI elements.
  */
 
-export interface UIScene extends Scene {
+export interface UIScene extends SceneState {
     guiData: {
         name: string;
     };
@@ -78,6 +78,6 @@ function UI(): UIScene {
         localState,
         isScene: isScene(state, SCENES.UI),
     });
-};
+}
 
 export default UI;

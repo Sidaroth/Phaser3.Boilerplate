@@ -38,6 +38,6 @@ function createKeyboardInput(): KeyboardInput {
         localState,
         canEmit: canEmit(state),
     });
-};
+}
 
 export default createKeyboardInput;

@@ -9,8 +9,8 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "preview": "vite preview",
-        "lint": "eslint src --ext .js --ext .ts",
-        "lint:fix": "eslint src --ext .js --ext .ts --fix"
+        "lint": "eslint src --ext .ts && tsc",
+        "lint:fix": "eslint src --ext .ts --fix"
     },
     "license": "MIT",
     "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
@@ -37,7 +37,7 @@
         "rollup-plugin-strip-code": "^0.2.7",
         "tslib": "^2.6.2",
         "typescript": "^5.2.2",
-        "vite": "^4.4.10",
+        "vite": "^4.4.11",
         "vite-plugin-dts": "^3.6.0",
         "vite-plugin-eslint": "^1.8.1"
     },

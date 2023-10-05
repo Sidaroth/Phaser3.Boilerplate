@@ -1,13 +1,18 @@
-import isGameEntity from 'components/entities/isGameEntity';
-import canEmit from 'components/events/canEmit';
-import hasPosition from 'components/hasPosition';
+import isGameEntity, { GameEntityState } from 'components/entities/isGameEntity';
+import canEmit, { EmitState } from 'components/events/canEmit';
+import hasPosition, { PositionState } from 'components/hasPosition';
 import createState from 'utils/createState';
-import hasAudio from 'components/hasAudio';
+import hasAudio, { Audio } from 'components/hasAudio';
 import { SFX } from 'configs/audioConfig';
 
-const createPlayer = function createPlayerFunc() {
+export interface Player extends PositionState, Audio, EmitState, GameEntityState {
+    name: string;
+    printInfo: () => void;
+}
+
+const createPlayer = function createPlayerFunc(): Player {
     // variables and functions here are private unless listed below in localState.
-    const state = {};
+    const state = {} as Player;
 
     function __constructor() {
         state.playSfx(SFX.COIN.KEY);

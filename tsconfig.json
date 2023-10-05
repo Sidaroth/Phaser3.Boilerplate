@@ -14,8 +14,9 @@
         "sourceMap": true,
         "resolveJsonModule": true,
         "esModuleInterop": true,
-        "emitDeclarationOnly": true,
         "experimentalDecorators": true,
+        "noEmit": true,
+        "skipLibCheck": true,
         "paths": {
             "configs*": [
                 "src/configs*"

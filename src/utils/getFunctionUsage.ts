@@ -1,25 +1,26 @@
 import { COMPOSITION_INFO } from 'configs/devConfig';
+import { State } from './createState';
 
-const alreadyLogged = [];
+const alreadyLogged: Array<string> = [];
 
 /* eslint-disable */
-const updateFunctionUsage = function updateFunctionUsageFunc(name, state, functionMap) {
+const updateFunctionUsage = function updateFunctionUsageFunc(name: string, state: any, functionMap: Map<string, Array<string>>) {
     for (const fun in state) {
         if (functionMap.has(fun)) {
-            functionMap.get(fun).push({ name });
+            functionMap.get(fun)?.push(name);
         } else {
-            functionMap.set(fun, [{ name }]);
+            functionMap.set(fun, [name]);
         }
     }
 };
 
-const isInFilter = function isInFilterFunc(COMPOSITION_INFO, val, source) {
+const isInFilter = function isInFilterFunc(val: Array<string>, source: string) {
     let isInFilter = true;
     if (COMPOSITION_INFO.ENABLE_FILTER) {
         isInFilter = false;
         if (COMPOSITION_INFO.FILTER) {
             COMPOSITION_INFO.FILTER.every(f => {
-                if (val.find(s => s.name === f)) {
+                if (val.find(s => s === f)) {
                     isInFilter = true;
                     return false;
                 }
@@ -37,24 +38,24 @@ const isInFilter = function isInFilterFunc(COMPOSITION_INFO, val, source) {
     return isInFilter && inFactoryFilter;
 };
 
-const getFunctionUsage = function getFunctionUsageFunc(states, source) {
+const getFunctionUsage = function getFunctionUsageFunc(states: Array<State>, source: string) {
     if (alreadyLogged.find(l => l === source)) {
         return;
     }
     alreadyLogged.push(source);
     if (COMPOSITION_INFO && COMPOSITION_INFO.ENABLE) {
         // map all states
-        const functionMap = new Map();
+        const functionMap = new Map<string, Array<string>>();
         states.forEach(s => {
             updateFunctionUsage(s.name, s.state, functionMap);
         });
 
         // print info
-        functionMap.forEach((val, key, map) => {
-            let inFilter = isInFilter(COMPOSITION_INFO, val, source);
+        functionMap.forEach((val, key) => {
+            let inFilter = isInFilter(val, source);
             if (inFilter && val.length > 1) {
                 console.log(
-                    `%c${source} %cneeds to pipe %c${key} %c=>${val.reduce((acc, curr) => `${acc} ${curr.name},`, '')}`,
+                    `%c${source} %cneeds to pipe %c${key} %c=>${val.reduce((acc: string, name: string) => `${acc} ${name},`, '')}`,
                     'color: yellow',
                     'color: inherits',
                     'color: yellow',
