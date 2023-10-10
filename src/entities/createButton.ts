@@ -3,6 +3,7 @@ import hasSize, { Size, SizeState } from 'components/hasSize';
 import hasPosition, { Position, PositionState } from 'components/hasPosition';
 import pipe from 'utils/pipe';
 import createState from 'utils/createState';
+import { EVENTS } from 'configs/eventConfig';
 
 export interface Button extends EmitState, PositionState, SizeState {
     refresh: () => void;
@@ -28,7 +29,7 @@ const createButton = function createButtonFunc(parent: Phaser.Scene): Button {
     }
 
     function onClick(e: any) {
-        state.emit('button_click', e);
+        state.emit(EVENTS.BUTTON.CLICK, e);
     }
 
     function refresh() {

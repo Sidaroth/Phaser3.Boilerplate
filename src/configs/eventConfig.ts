@@ -12,7 +12,7 @@ export const EVENTS = {
     BUTTON: {
         CLICK: 'button_click'
     }
-}
+} as const;
 
 export interface GameStartedEvent {
     welcomeMessage: string;
@@ -39,9 +39,9 @@ export interface ButtonClickEvent {
 }
 
 export interface EventData {
-    'game_started': GameStartedEvent;
-    'other_event': OtherEvent;
-    'keydown': KeyboardKeyDownEvent;
-    'keyup': KeyboardKeyUpEvent;
-    'button_click': ButtonClickEvent;
+    [EVENTS.GAME.STARTED]: GameStartedEvent;
+    [EVENTS.OTHER.TEST]: OtherEvent;
+    [EVENTS.KEYBOARD.KEYDOWN]: KeyboardKeyDownEvent;
+    [EVENTS.KEYBOARD.KEYUP]: KeyboardKeyUpEvent;
+    [EVENTS.BUTTON.CLICK]: ButtonClickEvent;
 }
