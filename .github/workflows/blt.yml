@@ -1,0 +1,32 @@
+name: Build - Lint - Test
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+jobs:
+  BLT:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+        with: 
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: pnpm/action-setup@v2.2.4
+        with:
+          version: 7.33.6
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20.7.0
+          registry-url: https://npm.pkg.github.com/
+          cache: 'pnpm'
+      - name: Install packages
+        run: pnpm install
+      - name: Lint
+        run: pnpm lint
+      - name: Build lib
+        run: pnpm build
+      # - name: Test
+      #   run: pnpm test
