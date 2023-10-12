@@ -1,6 +1,6 @@
 {
     "name": "phaser-3-boilerplate",
-    "version": "1.2.0",
+    "version": "2.0.0",
     "description": "Phaser 3 Boilerplate project for rapid development.",
     "author": "Christian Holt (Sidaroth@protonmail.com)",
     "contributors": [
@@ -13,12 +13,14 @@
             "email": "oe.nordli@gmail.com"
         }
     ],
-    "main": "src/index.js",
+    "main": "src/index.ts",
     "scripts": {
-        "default:start": "npm run clean && webpack --mode development",
-        "start": "webpack-dev-server --config config/webpack.config.dev.js",
-        "build": "npm run clean && webpack --mode production --config config/webpack.config.prod.js",
-        "clean": "rimraf dist"
+        "start": "pnpm run dev",
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "lint": "eslint src --ext .ts && tsc",
+        "lint:fix": "eslint src --ext .ts --fix"
     },
     "license": "MIT",
     "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
@@ -27,42 +29,34 @@
         "url": "git+https://github.com/sidaroth/Phaser3.Boilerplate.git"
     },
     "devDependencies": {
-        "@babel/core": "^7.11.1",
-        "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
-        "@babel/preset-env": "^7.11.0",
-        "babel-eslint": "^8.2.6",
-        "babel-loader": "^8.1.0",
-        "copy-webpack-plugin": "^6.0.3",
-        "core-js": "^2.6.11",
-        "css-loader": "^1.0.1",
-        "eslint": "^4.19.1",
-        "eslint-config-airbnb-base": "^12.1.0",
-        "eslint-config-standard": "^10.2.1",
-        "eslint-import-resolver-webpack": "^0.10.1",
-        "eslint-plugin-import": "^2.22.0",
-        "eslint-plugin-node": "^4.2.2",
-        "eslint-plugin-promise": "^3.8.0",
-        "eslint-plugin-standard": "^3.1.0",
-        "expose-loader": "^0.7.5",
-        "file-loader": "^1.1.11",
-        "html-webpack-plugin": "^3.1.0",
-        "html-webpack-template": "^6.1.0",
-        "mini-css-extract-plugin": "^0.4.5",
-        "node-sass": "^4.14.1",
-        "raw-loader": "^0.5.1",
-        "resolve-url-loader": "^2.3.2",
-        "rimraf": "^2.7.1",
-        "sass-loader": "^7.3.1",
-        "style-loader": "^0.21.0",
-        "webpack": "^4.44.1",
-        "webpack-cli": "^3.3.12",
-        "webpack-dev-server": "^3.11.0"
+        "@types/dat.gui": "^0.7.10",
+        "@types/stats": "^0.16.30",
+        "@types/uuid": "^9.0.4",
+        "@typescript-eslint/eslint-plugin": "^6.7.4",
+        "@typescript-eslint/parser": "^6.7.4",
+        "esbuild": "^0.19.4",
+        "eslint": "^8.50.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-airbnb-typescript": "^17.1.0",
+        "eslint-import-resolver-alias": "^1.1.2",
+        "eslint-plugin-import": "^2.28.1",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^6.1.1",
+        "eslint-plugin-standard": "^5.0.0",
+        "rollup-plugin-strip-code": "^0.2.7",
+        "tslib": "^2.6.2",
+        "typescript": "^5.2.2",
+        "vite": "^4.4.11",
+        "vite-plugin-dts": "^3.6.0",
+        "vite-plugin-eslint": "^1.8.1"
     },
     "dependencies": {
-        "dat.gui": "^0.7.7",
-        "immutable": "^3.8.2",
-        "phaser": "^3.24.1",
-        "stats-js": "^1.0.1",
-        "webpack-merge": "^5.1.2"
+        "@types/node": "^20.8.2",
+        "dat.gui": "^0.7.9",
+        "immutable": "^4.3.4",
+        "phaser": "^3.60.0",
+        "sass": "^1.68.0",
+        "stats.js": "^0.17.0",
+        "uuid": "^9.0.1"
     }
 }
