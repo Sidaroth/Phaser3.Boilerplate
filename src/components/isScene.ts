@@ -11,7 +11,7 @@ export interface LifeCycle {
 
 export type ExtendedPhaserScene = Phaser.Scene & LifeCycle
 
-export interface SceneState extends LifeCycle {
+export interface SceneComponent extends LifeCycle {
     sceneManager?: Phaser.Scenes.ScenePlugin;
     scene: ExtendedPhaserScene;
     addScene: (key: SCENES, sceneRef: ExtendedPhaserScene, autoStart: boolean) => Phaser.Scene | undefined | null;
@@ -24,7 +24,7 @@ export interface SceneState extends LifeCycle {
  * Phaser.Scene abstraction.
  * Init -> Preload -> Create -> Update -> Destroy
  */
-function isScene(state: SceneState, sceneKey: SCENES): SceneState {
+function isScene(state: SceneComponent, sceneKey: SCENES): SceneComponent {
     if (!sceneKey) {
         throw new Error('Missing sceneKey');
     }

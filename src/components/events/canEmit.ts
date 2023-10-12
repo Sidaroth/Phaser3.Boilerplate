@@ -3,17 +3,17 @@ import Phaser from 'phaser';
 import createListener, { Listener } from 'core/createListener';
 import { EventData } from 'configs/eventConfig';
 
-export interface EmitState {
+export interface EmitComponent {
     emitGlobal: <T extends keyof EventData>(event: T, data: EventData[T]) => void;
     emit: <T extends keyof EventData>(event: T, data: EventData[T]) => void;
-    on: <T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState) => Listener<T>;
-    once: <T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState) => Listener<T>;
+    on: <T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitComponent) => Listener<T>;
+    once: <T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitComponent) => Listener<T>;
     off: <T extends keyof EventData>(listener: Listener<T>) => void;
     removeAllListeners: () => void;
     destroy: () => void;
 }
 
-function canEmit(state: EmitState) {
+function canEmit(state: EmitComponent) {
     const localEmitter = new Phaser.Events.EventEmitter();
     const listeners: Array<Listener<any>> = [];
 
@@ -25,14 +25,14 @@ function canEmit(state: EmitState) {
         localEmitter.emit(event, data);
     }
 
-    function on<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T> {
+    function on<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitComponent): Listener<T> {
         localEmitter.on(event, fn, context);
         const listener = createListener(event, fn, false, state);
         listeners.push(listener);
         return listener;
     }
 
-    function once<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitState): Listener<T> {
+    function once<T extends keyof EventData>(event: T, fn: (e: EventData[T]) => void, context: EmitComponent): Listener<T> {
         localEmitter.once(event, fn, context);
         const listener = createListener(event, fn, true, state);
         listeners.push(listener);
@@ -60,7 +60,7 @@ function canEmit(state: EmitState) {
             localEmitter.destroy();
         }
     }
-    const returnState: EmitState = {
+    const returnState: EmitComponent = {
         // props
         // methods
         emitGlobal,

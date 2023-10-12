@@ -1,7 +1,7 @@
 import { SCENES } from 'configs/gameConfig';
-import { SceneState } from './isScene';
+import { SceneComponent } from './isScene';
 
-export interface Input extends SceneState {
+export interface Input extends SceneComponent {
 }
 
 function hasInput(state: Input) {

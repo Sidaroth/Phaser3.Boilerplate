@@ -3,7 +3,7 @@ import { Size } from 'components/hasSize';
 import { ExtendedPhaserScene } from 'components/isScene';
 import Phaser from 'phaser';
 
-export interface TriggerState {
+export interface TriggerComponent {
     init(parentScene: ExtendedPhaserScene): void;
     onEntityLeftRange(entity: Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody): void;
     onEntityEnteredRange(entity: Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody): void;
@@ -15,7 +15,7 @@ export interface TriggerState {
     update(): void;
 }
 
-const hasTrigger = function hasTriggerFunc(state: TriggerState): TriggerState {
+const hasTrigger = function hasTriggerFunc(state: TriggerComponent): TriggerComponent {
     let parentScene: ExtendedPhaserScene | undefined;
 
     let triggerZone: Phaser.GameObjects.Zone | undefined;

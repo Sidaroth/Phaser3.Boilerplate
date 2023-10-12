@@ -1,8 +1,8 @@
-import canEmit, { EmitState } from 'components/events/canEmit';
+import canEmit, { EmitComponent } from 'components/events/canEmit';
 import { EVENTS } from 'configs/eventConfig';
 import createState from 'utils/createState';
 
-export interface KeyboardInput extends EmitState {
+export interface KeyboardInput extends EmitComponent {
     disable: () => void;
     enable: () => void;
 }

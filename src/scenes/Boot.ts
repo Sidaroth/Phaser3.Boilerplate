@@ -1,10 +1,10 @@
 import { GAME, SCENES } from 'configs/gameConfig';
 import resizeCanvas from 'utils/resizeCanvas';
-import isScene, { LifeCycle, SceneState } from 'components/isScene';
+import isScene, { LifeCycle, SceneComponent } from 'components/isScene';
 import createState from 'utils/createState';
 import hasCamera, { Camera } from 'components/hasCamera';
 
-export interface BootScene extends SceneState, Camera, LifeCycle { }
+export interface BootScene extends SceneComponent, Camera, LifeCycle { }
 
 const BootScene = function BootSceneFunc() {
     const state: BootScene = {} as BootScene;

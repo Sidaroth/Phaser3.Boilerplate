@@ -3,7 +3,7 @@ export interface Position {
     y: number;
 }
 
-export interface PositionState {
+export interface PositionComponent {
     setPosition: (position: Position) => Position;
     setX: (xp: number) => number;
     setY: (yp: number) => number;
@@ -12,7 +12,7 @@ export interface PositionState {
     getY: () => number;
 }
 
-function hasPosition(state: PositionState): PositionState {
+function hasPosition(state: PositionComponent): PositionComponent {
     let x = 0;
     let y = 0;
 

@@ -1,11 +1,11 @@
 import isGameEntity, { GameEntityState } from 'components/entities/isGameEntity';
-import canEmit, { EmitState } from 'components/events/canEmit';
-import hasPosition, { PositionState } from 'components/hasPosition';
+import canEmit, { EmitComponent } from 'components/events/canEmit';
+import hasPosition, { PositionComponent } from 'components/hasPosition';
 import createState from 'utils/createState';
 import hasAudio, { Audio } from 'components/hasAudio';
 import { SFX } from 'configs/audioConfig';
 
-export interface Player extends PositionState, Audio, EmitState, GameEntityState {
+export interface Player extends PositionComponent, Audio, EmitComponent, GameEntityState {
     name: string;
     printInfo: () => void;
 }

@@ -1,11 +1,11 @@
-import canEmit, { EmitState } from 'components/events/canEmit';
-import hasSize, { Size, SizeState } from 'components/hasSize';
-import hasPosition, { Position, PositionState } from 'components/hasPosition';
+import canEmit, { EmitComponent } from 'components/events/canEmit';
+import hasSize, { Size, SizeComponent } from 'components/hasSize';
+import hasPosition, { Position, PositionComponent } from 'components/hasPosition';
 import pipe from 'utils/pipe';
 import createState from 'utils/createState';
 import { EVENTS } from 'configs/eventConfig';
 
-export interface Button extends EmitState, PositionState, SizeState {
+export interface Button extends EmitComponent, PositionComponent, SizeComponent {
     refresh: () => void;
     setText: (val: string) => void;
 }

@@ -3,13 +3,13 @@ import { BACKGROUND } from 'configs/spriteConfig';
 import createAudioManager, { AudioManager } from 'core/createAudioManager';
 import createPlayer from 'entities/createPlayer';
 import UI, { UIScene } from 'scenes/UI';
-import canListen, { ListenState } from 'components/events/canListen';
-import isScene, { SceneState } from 'components/isScene';
+import canListen, { ListenComponent } from 'components/events/canListen';
+import isScene, { SceneComponent } from 'components/isScene';
 import createState from 'utils/createState';
 import store from 'root/store';
 import hasCamera, { Camera } from 'components/hasCamera';
 
-export interface GameScene extends SceneState, Camera, ListenState { }
+export interface GameScene extends SceneComponent, Camera, ListenComponent { }
 /**
  * Responsible for delegating the various levels, holding the various core systems and such.
  */

@@ -1,7 +1,7 @@
-import canEmit, { EmitState } from 'components/events/canEmit';
+import canEmit, { EmitComponent } from 'components/events/canEmit';
 import createState from 'utils/createState';
 
-export interface MessageBus extends EmitState {
+export interface MessageBus extends EmitComponent {
 }
 
 function createMessageBus(): MessageBus {

@@ -1,10 +1,10 @@
-import hasPosition, { Position, PositionState } from 'components/hasPosition';
-import hasSize, { Size, SizeState } from 'components/hasSize';
+import hasPosition, { Position, PositionComponent } from 'components/hasPosition';
+import hasSize, { Size, SizeComponent } from 'components/hasSize';
 import { ExtendedPhaserScene, LifeCycle } from 'components/isScene';
 import createState from 'utils/createState';
 import pipe from 'utils/pipe';
 
-export interface LoadingBar extends PositionState, SizeState, LifeCycle { }
+export interface LoadingBar extends PositionComponent, SizeComponent, LifeCycle { }
 
 /**
  * A multipurpose loading bar that can be added to any scene.

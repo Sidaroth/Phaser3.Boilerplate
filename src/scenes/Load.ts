@@ -1,11 +1,11 @@
 import { GAME, SCENES } from 'configs/gameConfig';
 import createLoadingBar, { LoadingBar } from 'core/createLoadingBar';
 import { MUSIC, SFX } from 'configs/audioConfig';
-import isScene, { SceneState } from 'components/isScene';
+import isScene, { SceneComponent } from 'components/isScene';
 import createState from 'utils/createState';
 import { BACKGROUND, SPEAKER, SPEAKER_OFF } from 'configs/spriteConfig';
 
-export interface LoadSceneState extends SceneState { }
+export interface LoadSceneState extends SceneComponent { }
 
 function LoadScene(): LoadSceneState {
     const state = {} as LoadSceneState;

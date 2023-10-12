@@ -3,7 +3,7 @@ export interface Size {
     height: number;
 }
 
-export interface SizeState {
+export interface SizeComponent {
     setSize: (size: Size) => Size;
     setWidth: (wp: number) => number;
     setHeight: (hp: number) => number;
@@ -12,7 +12,7 @@ export interface SizeState {
     getHeight: () => number;
 }
 
-function hasSize(state: SizeState): SizeState {
+function hasSize(state: SizeComponent): SizeComponent {
     let width = 0;
     let height = 0;
 
