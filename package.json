@@ -1,6 +1,6 @@
 {
     "name": "phaser-3-boilerplate",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Phaser 3 Boilerplate project for rapid development.",
     "author": "Christian Holt (Sidaroth@protonmail.com)",
     "contributors": [
@@ -31,11 +31,11 @@
     "devDependencies": {
         "@types/dat.gui": "^0.7.10",
         "@types/stats": "^0.16.30",
-        "@types/uuid": "^9.0.4",
-        "@typescript-eslint/eslint-plugin": "^6.7.4",
-        "@typescript-eslint/parser": "^6.7.4",
+        "@types/uuid": "^9.0.5",
+        "@typescript-eslint/eslint-plugin": "^6.7.5",
+        "@typescript-eslint/parser": "^6.7.5",
         "esbuild": "^0.19.4",
-        "eslint": "^8.50.0",
+        "eslint": "^8.51.0",
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-config-airbnb-typescript": "^17.1.0",
         "eslint-import-resolver-alias": "^1.1.2",
@@ -51,11 +51,11 @@
         "vite-plugin-eslint": "^1.8.1"
     },
     "dependencies": {
-        "@types/node": "^20.8.2",
+        "@types/node": "^20.8.5",
         "dat.gui": "^0.7.9",
         "immutable": "^4.3.4",
         "phaser": "^3.60.0",
-        "sass": "^1.68.0",
+        "sass": "^1.69.3",
         "stats.js": "^0.17.0",
         "uuid": "^9.0.1"
     }
