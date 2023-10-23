@@ -51,7 +51,7 @@
         "vite-plugin-eslint": "^1.8.1"
     },
     "dependencies": {
-        "@types/node": "^20.8.5",
+        "@types/node": "^20.8.7",
         "dat.gui": "^0.7.9",
         "immutable": "^4.3.4",
         "phaser": "^3.60.0",
